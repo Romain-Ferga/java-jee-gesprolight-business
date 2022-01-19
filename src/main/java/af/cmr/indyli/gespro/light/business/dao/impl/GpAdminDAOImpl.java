@@ -11,7 +11,7 @@ import af.cmr.indyli.gespro.light.business.entity.GpAccountant;
 import af.cmr.indyli.gespro.light.business.entity.GpAdmin;
 import af.cmr.indyli.gespro.light.business.entity.GpEmployee;
 
-public class GpAdminDAOImpl extends GpAbstractAdminDAOImpl<GpAdmin> implements IGpAdminDAO<GpAdmin> {
+public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implements IGpAdminDAO {
 	
 	GpEntityManager entityManager = new GpEntityManager();
 	
@@ -46,7 +46,7 @@ public class GpAdminDAOImpl extends GpAbstractAdminDAOImpl<GpAdmin> implements I
 	@Override
 	public void update(GpAdmin acc) {
 		
-		super.update(acc);
+		//super.update(acc);
 		
 	}
 	

@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import af.cmr.indyli.gespro.light.business.dao.IGpAccountantDAO;
-import af.cmr.indyli.gespro.light.business.entity.GpAccountant;
+import af.cmr.indyli.gespro.light.business.dao.IGpDirectorDAO;
+import af.cmr.indyli.gespro.light.business.entity.GpTechnician;
 
-public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant> implements IGpAccountantDAO {
+public class GpTechnicianDAOImpl extends GpAbstractEmployeeDAOImpl<GpTechnician> implements IGpDirectorDAO {
 	
 	@Override
-	public GpAccountant create(GpAccountant acc) {
+	public GpTechnician create(GpTechnician tech) {
 		
 		try {
 			
@@ -20,12 +20,12 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 			this.getEntityManager().getDbConnect().setAutoCommit(false);
 			
 			// On enregistre dans la table employé
-			acc = super.create(acc);
+			tech = super.create(tech);
 			
 			// On enregistre l'id dans la table comptable
 			String REQ_SQL = "INSERT INTO GP_ACCOUNTANT (EMP_ID) VALUES (?)";
 			
-	    	Object[] tabParam = {acc.getId()};
+	    	Object[] tabParam = {tech.getId()};
 	    	
 	    	this.getEntityManager().updateAvecParamGenerique(REQ_SQL, tabParam);
 	    	
@@ -37,25 +37,25 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 			
 		}
     	
-    	return acc;
+    	return tech;
     	
 	}
 
 	@Override
-	public void update(GpAccountant acc) {
+	public void update(GpTechnician tech) {
 		
-		super.update(acc);
+		super.update(tech);
     	
 	}
 
 	@Override
-	public List<GpAccountant> findAll() {
+	public List<GpTechnician> findAll() {
 		
-		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE AS EMP, GP_ACCOUNTANT AS ACC WHERE EMP.EMP_ID = ACC.EMP_ID";
+		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE AS EMP, GP_TECHNICIAN AS TECH WHERE EMP.EMP_ID = TECH.EMP_ID";
 		
     	ResultSet resultat = this.getEntityManager().exec(REQ_SQL);
     	
-    	List<GpAccountant> accList = new ArrayList<GpAccountant>();
+    	List<GpTechnician> techList = new ArrayList<GpTechnician>();
     	
     	if (resultat != null) {
     		
@@ -63,7 +63,7 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
             	
 				while (resultat.next()) {
 					
-					Integer accId = resultat.getInt("EMP_ID");
+					Integer techId = resultat.getInt("EMP_ID");
 					String fileNumber = resultat.getString("FILE_NUMBER");
 					String lastname = resultat.getString("LASTNAME");
 					String firstname = resultat.getString("FIRSTNAME");
@@ -73,19 +73,20 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 					String email = resultat.getString("EMAIL");
 					String login = resultat.getString("LOGIN");
 					
-					GpAccountant foundEmp = new GpAccountant();
+					GpTechnician foundTech = new GpTechnician();
 					
-					foundEmp.setId(accId);
-					foundEmp.setFileNumber(fileNumber);
-					foundEmp.setLastname(lastname);
-					foundEmp.setFirstname(firstname);
-					foundEmp.setCreationDate(creationDate);
-					foundEmp.setPassword(password);
-					foundEmp.setPhoneNumber(phoneNumber);
-					foundEmp.setEmail(email);
-					foundEmp.setLogin(login);
+					foundTech.setId(techId);
+					foundTech.setFileNumber(fileNumber);
+					foundTech.setLastname(lastname);
+					foundTech.setFirstname(firstname);
+					foundTech.setCreationDate(creationDate);
+					foundTech.setPassword(password);
+					foundTech.setPhoneNumber(phoneNumber);
+					foundTech.setEmail(email);
+					foundTech.setLogin(login);
 					
-					accList.add(foundEmp);
+					techList.add(foundTech);
+					
 				}
 				
 				resultat.close();
@@ -97,20 +98,20 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 			}
         }
     	
-		return accList;
+		return techList;
 		
 	}
 
 	@Override
-	public GpAccountant findById(Integer accId) {
+	public GpTechnician findById(Integer techId) {
 		
 		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE WHERE EMP_ID = ?";
 		
-		Object[] tabParam = {accId};
+		Object[] tabParam = {techId};
 		
     	ResultSet resultat = this.getEntityManager().selectAvecParamGenerique(REQ_SQL, tabParam);
     	
-    	GpAccountant foundAcc = null;
+    	GpTechnician foundTech = null;
     	
     	if (resultat != null) {
     		
@@ -127,17 +128,17 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 					String email = resultat.getString("EMAIL");
 					String login = resultat.getString("LOGIN");
 					
-					foundAcc = new GpAccountant();
+					foundTech = new GpTechnician();
 					
-					foundAcc.setId(accId);
-					foundAcc.setFileNumber(fileNumber);
-					foundAcc.setLastname(lastname);
-					foundAcc.setFirstname(firstname);
-					foundAcc.setCreationDate(creationDate);
-					foundAcc.setPassword(password);
-					foundAcc.setPhoneNumber(phoneNumber);
-					foundAcc.setEmail(email);
-					foundAcc.setLogin(login);
+					foundTech.setId(techId);
+					foundTech.setFileNumber(fileNumber);
+					foundTech.setLastname(lastname);
+					foundTech.setFirstname(firstname);
+					foundTech.setCreationDate(creationDate);
+					foundTech.setPassword(password);
+					foundTech.setPhoneNumber(phoneNumber);
+					foundTech.setEmail(email);
+					foundTech.setLogin(login);
 				}
 				
 				resultat.close();
@@ -150,13 +151,13 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
             
         }
     	
-		return foundAcc;
+		return foundTech;
 	}
 
 	@Override
 	public String getCurrentTableName() {
 		
-		return GpAccountant.GP_ACCOUNTANT_TABLE_NAME;
+		return GpTechnician.GP_TECHNICIAN_TABLE_NAME;
 		
 	}
 

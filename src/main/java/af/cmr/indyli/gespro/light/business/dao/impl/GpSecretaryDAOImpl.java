@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import af.cmr.indyli.gespro.light.business.dao.IGpAccountantDAO;
-import af.cmr.indyli.gespro.light.business.entity.GpAccountant;
+import af.cmr.indyli.gespro.light.business.dao.IGpSecretaryDAO;
+import af.cmr.indyli.gespro.light.business.entity.GpSecretary;
 
-public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant> implements IGpAccountantDAO {
+public class GpSecretaryDAOImpl extends GpAbstractEmployeeDAOImpl<GpSecretary> implements IGpSecretaryDAO {
 	
 	@Override
-	public GpAccountant create(GpAccountant acc) {
+	public GpSecretary create(GpSecretary secr) {
 		
 		try {
 			
@@ -20,12 +20,12 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 			this.getEntityManager().getDbConnect().setAutoCommit(false);
 			
 			// On enregistre dans la table employé
-			acc = super.create(acc);
+			secr = super.create(secr);
 			
 			// On enregistre l'id dans la table comptable
-			String REQ_SQL = "INSERT INTO GP_ACCOUNTANT (EMP_ID) VALUES (?)";
+			String REQ_SQL = "INSERT INTO GP_SECRETARY (EMP_ID) VALUES (?)";
 			
-	    	Object[] tabParam = {acc.getId()};
+	    	Object[] tabParam = {secr.getId()};
 	    	
 	    	this.getEntityManager().updateAvecParamGenerique(REQ_SQL, tabParam);
 	    	
@@ -37,25 +37,25 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 			
 		}
     	
-    	return acc;
+    	return secr;
     	
 	}
 
 	@Override
-	public void update(GpAccountant acc) {
+	public void update(GpSecretary secr) {
 		
-		super.update(acc);
+		super.update(secr);
     	
 	}
 
 	@Override
-	public List<GpAccountant> findAll() {
+	public List<GpSecretary> findAll() {
 		
-		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE AS EMP, GP_ACCOUNTANT AS ACC WHERE EMP.EMP_ID = ACC.EMP_ID";
+		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE AS EMP, GP_SECRETATY AS ACC WHERE EMP.EMP_ID = ACC.EMP_ID";
 		
     	ResultSet resultat = this.getEntityManager().exec(REQ_SQL);
     	
-    	List<GpAccountant> accList = new ArrayList<GpAccountant>();
+    	List<GpSecretary> secrList = new ArrayList<GpSecretary>();
     	
     	if (resultat != null) {
     		
@@ -63,7 +63,7 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
             	
 				while (resultat.next()) {
 					
-					Integer accId = resultat.getInt("EMP_ID");
+					Integer secrId = resultat.getInt("EMP_ID");
 					String fileNumber = resultat.getString("FILE_NUMBER");
 					String lastname = resultat.getString("LASTNAME");
 					String firstname = resultat.getString("FIRSTNAME");
@@ -73,19 +73,19 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 					String email = resultat.getString("EMAIL");
 					String login = resultat.getString("LOGIN");
 					
-					GpAccountant foundEmp = new GpAccountant();
+					GpSecretary foundSecr = new GpSecretary();
 					
-					foundEmp.setId(accId);
-					foundEmp.setFileNumber(fileNumber);
-					foundEmp.setLastname(lastname);
-					foundEmp.setFirstname(firstname);
-					foundEmp.setCreationDate(creationDate);
-					foundEmp.setPassword(password);
-					foundEmp.setPhoneNumber(phoneNumber);
-					foundEmp.setEmail(email);
-					foundEmp.setLogin(login);
+					foundSecr.setId(secrId);
+					foundSecr.setFileNumber(fileNumber);
+					foundSecr.setLastname(lastname);
+					foundSecr.setFirstname(firstname);
+					foundSecr.setCreationDate(creationDate);
+					foundSecr.setPassword(password);
+					foundSecr.setPhoneNumber(phoneNumber);
+					foundSecr.setEmail(email);
+					foundSecr.setLogin(login);
 					
-					accList.add(foundEmp);
+					secrList.add(foundSecr);
 				}
 				
 				resultat.close();
@@ -97,20 +97,20 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 			}
         }
     	
-		return accList;
+		return secrList;
 		
 	}
 
 	@Override
-	public GpAccountant findById(Integer accId) {
+	public GpSecretary findById(Integer secrId) {
 		
 		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE WHERE EMP_ID = ?";
 		
-		Object[] tabParam = {accId};
+		Object[] tabParam = {secrId};
 		
     	ResultSet resultat = this.getEntityManager().selectAvecParamGenerique(REQ_SQL, tabParam);
     	
-    	GpAccountant foundAcc = null;
+    	GpSecretary foundSecr = null;
     	
     	if (resultat != null) {
     		
@@ -127,17 +127,17 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 					String email = resultat.getString("EMAIL");
 					String login = resultat.getString("LOGIN");
 					
-					foundAcc = new GpAccountant();
+					foundSecr = new GpSecretary();
 					
-					foundAcc.setId(accId);
-					foundAcc.setFileNumber(fileNumber);
-					foundAcc.setLastname(lastname);
-					foundAcc.setFirstname(firstname);
-					foundAcc.setCreationDate(creationDate);
-					foundAcc.setPassword(password);
-					foundAcc.setPhoneNumber(phoneNumber);
-					foundAcc.setEmail(email);
-					foundAcc.setLogin(login);
+					foundSecr.setId(secrId);
+					foundSecr.setFileNumber(fileNumber);
+					foundSecr.setLastname(lastname);
+					foundSecr.setFirstname(firstname);
+					foundSecr.setCreationDate(creationDate);
+					foundSecr.setPassword(password);
+					foundSecr.setPhoneNumber(phoneNumber);
+					foundSecr.setEmail(email);
+					foundSecr.setLogin(login);
 				}
 				
 				resultat.close();
@@ -150,13 +150,13 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
             
         }
     	
-		return foundAcc;
+		return foundSecr;
 	}
 
 	@Override
 	public String getCurrentTableName() {
 		
-		return GpAccountant.GP_ACCOUNTANT_TABLE_NAME;
+		return GpSecretary.GP_SECRETARY_TABLE_NAME;
 		
 	}
 
