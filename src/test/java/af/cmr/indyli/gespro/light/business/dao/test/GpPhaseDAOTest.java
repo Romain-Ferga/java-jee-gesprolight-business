@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.impl.GpPhaseDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpProjectDAOImpl;
-import af.cmr.indyli.gespro.light.business.entity.GpOrganization;
 import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 import af.cmr.indyli.gespro.light.business.entity.GpProject;
 
@@ -62,6 +61,35 @@ public class GpPhaseDAOTest {
 		
 		// Then
 		Assert.assertTrue(phss.size() > 0);
+		
+	}
+
+	@Test
+	public void testFindByIdWithSuccess() {
+		
+		// Given
+		Integer phsId = this.phsIdForAllTest;
+
+		// When
+		GpPhase phs = this.phsDAO.findById(phsId);
+		
+		// Then
+		Assert.assertNotNull(phs);
+		
+	}
+
+	@Test
+	public void testDelete() {
+		
+		// Given
+		Integer phsId = this.phsIdForAllTest;
+		
+		// When
+		this.phsDAO.deleteById(phsId);
+		GpPhase phs = this.phsDAO.findById(phsId);
+		
+		// Then
+		Assert.assertNull(phs);
 		
 	}
 

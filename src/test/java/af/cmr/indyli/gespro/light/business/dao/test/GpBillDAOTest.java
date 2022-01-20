@@ -8,7 +8,6 @@ import org.junit.Test;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpBillDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpPhaseDAOImpl;
 import af.cmr.indyli.gespro.light.business.entity.GpBill;
-import af.cmr.indyli.gespro.light.business.entity.GpEmployee;
 import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 
 public class GpBillDAOTest {
@@ -55,6 +54,35 @@ public class GpBillDAOTest {
 		
 		// Then
 		Assert.assertTrue(bills.size() > 0);
+		
+	}
+
+	@Test
+	public void testFindByIdWithSuccess() {
+		
+		// Given
+		Integer billId = this.billIdForAllTest;
+
+		// When
+		GpBill bill = this.billDAO.findById(billId);
+		
+		// Then
+		Assert.assertNotNull(bill);
+		
+	}
+
+	@Test
+	public void testDelete() {
+		
+		// Given
+		Integer billId = this.billIdForAllTest;
+		
+		// When
+		this.billDAO.deleteById(billId);
+		GpBill bill = this.billDAO.findById(billId);
+		
+		// Then
+		Assert.assertNull(bill);
 		
 	}
 

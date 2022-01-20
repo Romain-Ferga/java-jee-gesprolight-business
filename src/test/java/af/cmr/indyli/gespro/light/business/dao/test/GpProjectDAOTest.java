@@ -10,7 +10,6 @@ import af.cmr.indyli.gespro.light.business.dao.impl.GpOrganizationDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpProjectDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpProjectManagerDAOImpl;
 import af.cmr.indyli.gespro.light.business.entity.GpOrganization;
-import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 import af.cmr.indyli.gespro.light.business.entity.GpProject;
 import af.cmr.indyli.gespro.light.business.entity.GpProjectManager;
 
@@ -67,6 +66,35 @@ public class GpProjectDAOTest {
 		
 		// Then
 		Assert.assertTrue(prjs.size() > 0);
+		
+	}
+
+	@Test
+	public void testFindByIdWithSuccess() {
+		
+		// Given
+		Integer prjId = this.prjIdForAllTest;
+
+		// When
+		GpProject prj = this.prjDAO.findById(prjId);
+		
+		// Then
+		Assert.assertNotNull(prj);
+		
+	}
+
+	@Test
+	public void testDelete() {
+		
+		// Given
+		Integer prjId = this.prjIdForAllTest;
+		
+		// When
+		this.prjDAO.deleteById(prjId);
+		GpProject prj = this.prjDAO.findById(prjId);
+		
+		// Then
+		Assert.assertNull(prj);
 		
 	}
 

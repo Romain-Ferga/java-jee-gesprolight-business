@@ -59,4 +59,33 @@ public class GpEmpReaPhaseDAOTest {
 		
 	}
 
+	@Test
+	public void testFindByIdWithSuccess() {
+		
+		// Given
+		Integer erpId = this.erpIdForAllTest;
+
+		// When
+		GpEmpReaPhase erp = this.erpDAO.findById(erpId);
+		
+		// Then
+		Assert.assertNotNull(erp);
+		
+	}
+
+	@Test
+	public void testDelete() {
+		
+		// Given
+		Integer erpId = this.erpIdForAllTest;
+		
+		// When
+		this.erpDAO.deleteById(erpId);
+		GpEmpReaPhase erp = this.erpDAO.findById(erpId);
+		
+		// Then
+		Assert.assertNull(erp);
+		
+	}
+
 }

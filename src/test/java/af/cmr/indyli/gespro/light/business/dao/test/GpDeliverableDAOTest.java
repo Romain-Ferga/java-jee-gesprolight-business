@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.impl.GpDeliverableDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpPhaseDAOImpl;
-import af.cmr.indyli.gespro.light.business.entity.GpBill;
 import af.cmr.indyli.gespro.light.business.entity.GpDeliverable;
 import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 
@@ -57,6 +56,35 @@ public class GpDeliverableDAOTest {
 		
 		// Then
 		Assert.assertTrue(dlvbs.size() > 0);
+		
+	}
+
+	@Test
+	public void testFindByIdWithSuccess() {
+		
+		// Given
+		Integer dlvbId = this.dlvbIdForAllTest;
+
+		// When
+		GpDeliverable dlvb = this.dlvbDAO.findById(dlvbId);
+		
+		// Then
+		Assert.assertNotNull(dlvb);
+		
+	}
+
+	@Test
+	public void testDelete() {
+		
+		// Given
+		Integer dlvbId = this.dlvbIdForAllTest;
+		
+		// When
+		this.dlvbDAO.deleteById(dlvbId);
+		GpDeliverable dlvb = this.dlvbDAO.findById(dlvbId);
+		
+		// Then
+		Assert.assertNull(dlvb);
 		
 	}
 
