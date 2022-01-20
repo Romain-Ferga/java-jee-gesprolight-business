@@ -1,6 +1,7 @@
 package af.cmr.indyli.gespro.light.business.dao.test;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import af.cmr.indyli.gespro.light.business.dao.impl.GpOrganizationDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpProjectDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpProjectManagerDAOImpl;
 import af.cmr.indyli.gespro.light.business.entity.GpOrganization;
+import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 import af.cmr.indyli.gespro.light.business.entity.GpProject;
 import af.cmr.indyli.gespro.light.business.entity.GpProjectManager;
 
@@ -46,10 +48,26 @@ public class GpProjectDAOTest {
 		
 		// When
 		prj = prjDAO.create(prj);
+		
 		//On le sauvegarde pour le supprimer apres
 		this.createPrjId = prj.getId();
+		
 		// Then
 		Assert.assertNotNull(prj.getId());
+		
+	}
+
+	@Test
+	public void testFindAllProjectWithSuccess() {
+		
+		// Given
+
+		// When
+		List<GpProject> prjs = this.prjDAO.findAll();
+		
+		// Then
+		Assert.assertTrue(prjs.size() > 0);
+		
 	}
 
 }

@@ -1,12 +1,14 @@
 package af.cmr.indyli.gespro.light.business.dao.test;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.impl.GpPhaseDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpProjectDAOImpl;
+import af.cmr.indyli.gespro.light.business.entity.GpOrganization;
 import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 import af.cmr.indyli.gespro.light.business.entity.GpProject;
 
@@ -41,10 +43,26 @@ public class GpPhaseDAOTest {
 		
 		// When
 		phs = phsDAO.create(phs);
+		
 		//On le sauvegarde pour le supprimer apres
 		this.createPhsId = phs.getId();
+		
 		// Then
 		Assert.assertNotNull(phs.getId());
+		
+	}
+
+	@Test
+	public void testFindAllPhaseWithSuccess() {
+		
+		// Given
+
+		// When
+		List<GpPhase> phss = this.phsDAO.findAll();
+		
+		// Then
+		Assert.assertTrue(phss.size() > 0);
+		
 	}
 
 }

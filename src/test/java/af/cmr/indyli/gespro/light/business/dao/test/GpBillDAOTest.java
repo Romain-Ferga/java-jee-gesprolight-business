@@ -1,11 +1,14 @@
 package af.cmr.indyli.gespro.light.business.dao.test;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.impl.GpBillDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpPhaseDAOImpl;
 import af.cmr.indyli.gespro.light.business.entity.GpBill;
+import af.cmr.indyli.gespro.light.business.entity.GpEmployee;
 import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 
 public class GpBillDAOTest {
@@ -33,10 +36,26 @@ public class GpBillDAOTest {
 
 		// When
 		bill = billDAO.create(bill);
+		
 		//On le sauvegarde pour le supprimer apres
 		this.createBillId = bill.getId();
+		
 		// Then
 		Assert.assertNotNull(bill.getId());
+		
+	}
+
+	@Test
+	public void testFindAllBillWithSuccess() {
+		
+		// Given
+
+		// When
+		List<GpBill> bills = this.billDAO.findAll();
+		
+		// Then
+		Assert.assertTrue(bills.size() > 0);
+		
 	}
 
 }

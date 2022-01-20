@@ -1,12 +1,14 @@
 package af.cmr.indyli.gespro.light.business.dao.test;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.impl.GpDeliverableDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpPhaseDAOImpl;
+import af.cmr.indyli.gespro.light.business.entity.GpBill;
 import af.cmr.indyli.gespro.light.business.entity.GpDeliverable;
 import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 
@@ -36,10 +38,26 @@ public class GpDeliverableDAOTest {
 		
 		// When
 		dlvb = dlvbDAO.create(dlvb);
+		
 		//On le sauvegarde pour le supprimer apres
 		this.createDlvbId = dlvb.getId();
+		
 		// Then
 		Assert.assertNotNull(dlvb.getId());
+		
+	}
+
+	@Test
+	public void testFindAllDeliverableWithSuccess() {
+		
+		// Given
+
+		// When
+		List<GpDeliverable> dlvbs = this.dlvbDAO.findAll();
+		
+		// Then
+		Assert.assertTrue(dlvbs.size() > 0);
+		
 	}
 
 }

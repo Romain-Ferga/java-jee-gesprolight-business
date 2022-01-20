@@ -1,12 +1,14 @@
 package af.cmr.indyli.gespro.light.business.dao.test;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.impl.GpOrganizationDAOImpl;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpPhaseDAOImpl;
+import af.cmr.indyli.gespro.light.business.entity.GpEmpReaPhase;
 import af.cmr.indyli.gespro.light.business.entity.GpOrganization;
 import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 
@@ -33,10 +35,26 @@ public class GpOrganizationDAOTest {
 		
 		// When
 		org = orgDAO.create(org);
+		
 		//On le sauvegarde pour le supprimer apres
 		this.createOrgId = org.getId();
+		
 		// Then
 		Assert.assertNotNull(org.getId());
+		
+	}
+
+	@Test
+	public void testFindAllOrganizationWithSuccess() {
+		
+		// Given
+
+		// When
+		List<GpOrganization> orgs = this.orgDAO.findAll();
+		
+		// Then
+		Assert.assertTrue(orgs.size() > 0);
+		
 	}
 
 }
