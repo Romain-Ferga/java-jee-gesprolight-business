@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import af.cmr.indyli.gespro.light.business.dao.IGpDirectorDAO;
+import af.cmr.indyli.gespro.light.business.dao.IGpTechnicianDAO;
 import af.cmr.indyli.gespro.light.business.entity.GpTechnician;
 
-public class GpTechnicianDAOImpl extends GpAbstractEmployeeDAOImpl<GpTechnician> implements IGpDirectorDAO {
+public class GpTechnicianDAOImpl extends GpAbstractEmployeeDAOImpl<GpTechnician> implements IGpTechnicianDAO {
 	
 	@Override
 	public GpTechnician create(GpTechnician tech) {
@@ -23,7 +23,7 @@ public class GpTechnicianDAOImpl extends GpAbstractEmployeeDAOImpl<GpTechnician>
 			tech = super.create(tech);
 			
 			// On enregistre l'id dans la table comptable
-			String REQ_SQL = "INSERT INTO GP_ACCOUNTANT (EMP_ID) VALUES (?)";
+			String REQ_SQL = "INSERT INTO GP_TECHNICIAN (EMP_ID) VALUES (?)";
 			
 	    	Object[] tabParam = {tech.getId()};
 	    	
