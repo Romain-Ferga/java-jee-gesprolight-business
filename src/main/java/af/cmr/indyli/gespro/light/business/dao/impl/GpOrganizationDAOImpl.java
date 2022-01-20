@@ -17,7 +17,7 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 
 		String REQ_SQL = "INSERT INTO GP_ORGANIZATION (ORG_CODE, NAME, PHONE_NUMBER, CONTACT_NAME, CONTACT_EMAIL, ADR_WEB) VALUES (?,?,?,?,?,?)";
 		
-		Object[] tabParam = {org.getOrgCode(), org.getName(), org.getPhoneNumber(), org.getContactName(), org.getContactName(), org.getAdrWeb()};
+		Object[] tabParam = {org.getOrgCode(), org.getName(), org.getPhoneNumber(), org.getContactName(), org.getContactEmail(), org.getAdrWeb()};
 		
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
 		
