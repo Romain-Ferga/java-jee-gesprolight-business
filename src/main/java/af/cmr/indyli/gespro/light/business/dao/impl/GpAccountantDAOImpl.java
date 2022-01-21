@@ -51,7 +51,7 @@ public class GpAccountantDAOImpl extends GpAbstractEmployeeDAOImpl<GpAccountant>
 	@Override
 	public List<GpAccountant> findAll() {
 		
-		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE AS EMP, GP_ACCOUNTANT AS ACC WHERE EMP.EMP_ID = ACC.EMP_ID";
+		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE";
 		
     	ResultSet resultat = this.getEntityManager().exec(REQ_SQL);
     	

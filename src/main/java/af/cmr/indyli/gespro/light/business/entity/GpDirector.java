@@ -11,6 +11,5 @@ public class GpDirector extends GpEmployee {
 
 	public GpDirector() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 }

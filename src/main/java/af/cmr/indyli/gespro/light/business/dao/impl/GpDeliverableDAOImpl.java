@@ -18,7 +18,7 @@ public class GpDeliverableDAOImpl implements IGpDeliverableDAO {
 
 		String REQ_SQL = "INSERT INTO GP_DELIVERABLE (DEL_CODE, LABEL, DESCRIPTION, DEL_PATH, CREATION_DATE, PHASE_ID) VALUES (?,?,?,?,?,?)";
 		
-		Object[] tabParam = {dlvb.getDelCode(), dlvb.getLabel(), dlvb.getDescription(), dlvb.getDelPath(), dlvb.getCreationDate(), dlvb.getGpPhase()};
+		Object[] tabParam = {dlvb.getDelCode(), dlvb.getLabel(), dlvb.getDescription(), dlvb.getDelPath(), dlvb.getCreationDate(), dlvb.getGpPhase().getId()};
 		
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
 		
@@ -31,7 +31,7 @@ public class GpDeliverableDAOImpl implements IGpDeliverableDAO {
 
 		String REQ_SQL = "UPDATE FROM GP_DELIVERABLE SET DEL_CODE=?, LABEL=?, DESCRIPTION=?, DEL_PATH=?, CREATION_DATE=?, PHASE_ID=? WHERE DEL_ID=?";
 		
-		Object[] tabParam = {dlvb.getDelCode(), dlvb.getLabel(), dlvb.getDescription(), dlvb.getDelPath(), dlvb.getCreationDate(), dlvb.getGpPhase()};
+		Object[] tabParam = {dlvb.getDelCode(), dlvb.getLabel(), dlvb.getDescription(), dlvb.getDelPath(), dlvb.getCreationDate(), dlvb.getGpPhase().getId()};
 		
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);	
 		

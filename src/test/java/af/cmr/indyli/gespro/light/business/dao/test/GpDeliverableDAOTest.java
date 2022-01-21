@@ -35,7 +35,7 @@ public class GpDeliverableDAOTest {
 		dlvb.setLabel("dlvb label");
 		dlvb.setDescription("dlvb description");
 		dlvb.setDelPath("dlvb path");
-		dlvb.setCreationDate(new Date()); //TODO 2: Est-ce que ca fonctionne ?
+		dlvb.setCreationDate(new Date());
 		dlvb.setGpPhase(phs);
 		
 		// When

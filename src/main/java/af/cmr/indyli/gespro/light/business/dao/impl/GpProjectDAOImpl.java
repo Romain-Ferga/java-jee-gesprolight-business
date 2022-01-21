@@ -64,7 +64,7 @@ public class GpProjectDAOImpl implements IGpProjectDAO {
 
 		String REQ_SQL = "UPDATE FROM GP_PROJECT SET PROJECT_CODE=?, NAME=?, DESCRIPTION=?, START_DATE=?, END_DATE=?, AMOUNT=?, CREATION_DATE=?, UPDATE_DATE=?, ORG_ID=?, EMP_ID=? WHERE PROJECT_ID=?";
 		
-		Object[] tabParam = {prj.getProjectCode(), prj.getName(), prj.getDescription(), prj.getStartDate(), prj.getStartDate(), prj.getEndDate(), prj.getCreationDate(), prj.getUpdateDate(), prj.getGpOrganization(), prj.getGpChefProjet()};
+		Object[] tabParam = {prj.getProjectCode(), prj.getName(), prj.getDescription(), prj.getStartDate(), prj.getEndDate(), prj.getAmount(), prj.getCreationDate(), prj.getUpdateDate(), prj.getGpOrganization().getId(), prj.getGpChefProjet().getId()};
 		
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);	
 		

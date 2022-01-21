@@ -23,7 +23,7 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 				
 			String REQ_SQL = "INSERT INTO GP_PHASE (PHASE_CODE, DESCRIPTION, START_DATE, END_DATE, AMOUNT, STATUS, IS_ENDED, CREATION_DATE, UPDATE_DATE, PROJECT_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
 			
-			Object[] tabParam = {phs.getPhaseCode(), phs.getDescription(), phs.getStartDate(), phs.getEndDate(), phs.getAmount(), phs.getStatus(), phs.getIsEnded(), phs.getCreationDate(), phs.getUpdateDate(), phs.getGpProject()};
+			Object[] tabParam = {phs.getPhaseCode(), phs.getDescription(), phs.getStartDate(), phs.getEndDate(), phs.getAmount(), phs.getStatus(), phs.getIsEnded(), phs.getCreationDate(), phs.getUpdateDate(), phs.getGpProject().getId()};
 			
 			entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
 			
@@ -32,21 +32,23 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 			
 			phs.setId(phsId);
 			
-			String REQ_SQL_MAX_ID = "SELECT MAX(PHASE_ID) AS MAX_ID FROM GP_PHASE";
+			/*
+			 * String REQ_SQL_MAX_ID = "SELECT MAX(PHASE_ID) AS MAX_ID FROM GP_PHASE";
+			 * 
+			 * ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
+			 * 
+			 * if(resultat != null) {
+			 * 
+			 * while(resultat.next()) {
+			 * 
+			 * phs.setId(resultat.getInt("MAX_ID"));
+			 * 
+			 * }
+			 * 
+			 * }
+			 */
 			
-			ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
-			
-			if(resultat != null) {
-				
-				while(resultat.next()) {
-					
-					phs.setId(resultat.getInt("MAX_ID"));
-					
-				}
-				
-			}
-			
-			entityManager.getDbConnect().setAutoCommit(false);
+			entityManager.getDbConnect().setAutoCommit(true);
 			
 			}catch(SQLException e) {
 			
@@ -63,7 +65,7 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 
 		String REQ_SQL = "UPDATE FROM GP_PHASE SET PHASE_CODE=?, DESCRIPTION=?, START_DATE=?, END_DATE=?, AMOUNT=?, STATUS=?, IS_ENDED=?, CREATION_DATE=?, UPDATE_DATE=?, PROJECT_ID=? WHERE PHASE_ID=?";
 		
-		Object[] tabParam = {phs.getPhaseCode(), phs.getDescription(), phs.getStartDate(), phs.getEndDate(), phs.getAmount(), phs.getStatus(), phs.getIsEnded(), phs.getCreationDate(), phs.getUpdateDate(), phs.getGpProject()};
+		Object[] tabParam = {phs.getPhaseCode(), phs.getDescription(), phs.getStartDate(), phs.getEndDate(), phs.getAmount(), phs.getStatus(), phs.getIsEnded(), phs.getCreationDate(), phs.getUpdateDate(), phs.getGpProject().getId(), phs.getId()};
 		
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);	
 		

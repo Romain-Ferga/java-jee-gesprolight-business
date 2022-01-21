@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.IGpEmployeeDAO;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpDirectorDAOImpl;
-import af.cmr.indyli.gespro.light.business.entity.GpAccountant;
 import af.cmr.indyli.gespro.light.business.entity.GpDirector;
 import af.cmr.indyli.gespro.light.business.entity.GpEmployee;
 

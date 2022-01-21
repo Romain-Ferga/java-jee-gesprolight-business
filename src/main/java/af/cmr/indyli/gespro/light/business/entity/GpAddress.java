@@ -4,7 +4,7 @@ package af.cmr.indyli.gespro.light.business.entity;
 public class GpAddress implements IEntity {
 	private static final long serialVersionUID = 1L;
 
-	private int id;
+	private Integer id; // TODO: Pourquoi doit-on absolument mettre un type Integer
 
 	private String country;
 
@@ -12,9 +12,9 @@ public class GpAddress implements IEntity {
 
 	private String streetLabel;
 
-	private int streetNumber;
+	private Integer streetNumber;
 
-	private int zipCode;
+	private Integer zipCode;
 
 	private GpEmployee gpEmployee;
 
@@ -49,7 +49,7 @@ public class GpAddress implements IEntity {
 		this.streetLabel = streetLabel;
 	}
 
-	public int getStreetNumber() {
+	public Integer getStreetNumber() {
 		return this.streetNumber;
 	}
 
@@ -57,7 +57,7 @@ public class GpAddress implements IEntity {
 		this.streetNumber = streetNumber;
 	}
 
-	public int getZipCode() {
+	public Integer getZipCode() {
 		return this.zipCode;
 	}
 

@@ -15,6 +15,7 @@ public class GpProjectManager extends GpEmployee {
 	}
 
 
+	// TODO 6: A réaliser au niveau des services ? Mais pourquoi ne pas le stocker en base ?
 	public List<GpProject> getGpProjects() {
 		return gpProjects;
 	}

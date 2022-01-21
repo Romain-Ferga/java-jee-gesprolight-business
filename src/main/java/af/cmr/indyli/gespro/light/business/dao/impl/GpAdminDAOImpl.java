@@ -15,7 +15,7 @@ public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implement
 	GpEntityManager entityManager = new GpEntityManager();
 	
 	@Override
-	public GpAdmin create(GpAdmin acc) {
+	public GpAdmin create(GpAdmin adm) {
 		
 		try {
 			
@@ -23,11 +23,13 @@ public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implement
 			this.getEntityManager().getDbConnect().setAutoCommit(false);
 			
 			// On enregistre dans la table employé
-			acc = super.create(acc);
+			adm = super.create(adm);
 			
 			// On enregistre l'id dans la table comptable
-			String REQ_SQL = "INSERT INTO GP_ACCOUNTANT (EMP_ID) VALUES (?)";
-	    	Object[] tabParam = {acc.getId()};
+			String REQ_SQL = "INSERT INTO GP_ADMIN (EMP_ID) VALUES (?)";
+			
+	    	Object[] tabParam = {adm.getId()};
+	    	
 	    	this.getEntityManager().updateAvecParamGenerique(REQ_SQL, tabParam);
 	    	
 	    	this.getEntityManager().getDbConnect().setAutoCommit(true);
@@ -38,23 +40,25 @@ public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implement
 			
 		}
 		
-		return acc;
+		return adm;
 		
 	}
 	
 	@Override
-	public void update(GpAdmin acc) {
+	public void update(GpAdmin adm) {
 		
-		//super.update(acc);
+		super.update(adm);
 		
 	}
 	
 	@Override
 	public List<GpAdmin> findAll() {
 		
-		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE";
+		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE AS EMP, GP_ADMIN AS ADM WHERE EMP.EMP_ID = ADM.EMP_ID";
+		
 		ResultSet resultat = this.getEntityManager().exec(REQ_SQL);
-		List<GpAdmin> accList = new ArrayList<GpAdmin>();
+		
+		List<GpAdmin> admList = new ArrayList<GpAdmin>();
 		
 		if (resultat != null) {
 			
@@ -62,7 +66,7 @@ public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implement
 	        	
 				while (resultat.next()) {
 					
-					Integer accId = resultat.getInt("EMP_ID");
+					Integer admId = resultat.getInt("EMP_ID");
 					String fileNumber = resultat.getString("FILE_NUMBER");
 					String lastname = resultat.getString("LASTNAME");
 					String firstname = resultat.getString("FIRSTNAME");
@@ -72,19 +76,19 @@ public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implement
 					String email = resultat.getString("EMAIL");
 					String login = resultat.getString("LOGIN");
 					
-					GpAdmin foundEmp = new GpAdmin();
+					GpAdmin foundAdm = new GpAdmin();
 					
-					foundEmp.setId(accId);
-					foundEmp.setFileNumber(fileNumber);
-					foundEmp.setLastname(lastname);
-					foundEmp.setFirstname(firstname);
-					foundEmp.setCreationDate(creationDate);
-					foundEmp.setPassword(password);
-					foundEmp.setPhoneNumber(phoneNumber);
-					foundEmp.setEmail(email);
-					foundEmp.setLogin(login);
+					foundAdm.setId(admId);
+					foundAdm.setFileNumber(fileNumber);
+					foundAdm.setLastname(lastname);
+					foundAdm.setFirstname(firstname);
+					foundAdm.setCreationDate(creationDate);
+					foundAdm.setPassword(password);
+					foundAdm.setPhoneNumber(phoneNumber);
+					foundAdm.setEmail(email);
+					foundAdm.setLogin(login);
 					
-					accList.add(foundEmp);
+					admList.add(foundAdm);
 				}
 				
 				resultat.close();
@@ -96,16 +100,19 @@ public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implement
 			}
 	    }
 		
-		return accList;
+		return admList;
 		
 	}
 	
 	@Override
-	public GpAdmin findById(Integer accId) {
+	public GpAdmin findById(Integer admId) {
 		
 		String REQ_SQL = "SELECT * FROM GP_EMPLOYEE WHERE EMP_ID = ?";
-		Object[] tabParam = {accId};
+		
+		Object[] tabParam = {admId};
+		
 		ResultSet resultat = this.getEntityManager().selectAvecParamGenerique(REQ_SQL, tabParam);
+		
 		GpAdmin foundAdm = null;
 		
 		if (resultat != null) {
@@ -125,7 +132,7 @@ public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implement
 					
 					foundAdm = new GpAdmin();
 					
-					foundAdm.setId(accId);
+					foundAdm.setId(admId);
 					foundAdm.setFileNumber(fileNumber);
 					foundAdm.setLastname(lastname);
 					foundAdm.setFirstname(firstname);
@@ -134,6 +141,7 @@ public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implement
 					foundAdm.setPhoneNumber(phoneNumber);
 					foundAdm.setEmail(email);
 					foundAdm.setLogin(login);
+					
 				}
 				
 				resultat.close();
@@ -151,7 +159,9 @@ public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implement
 	
 	@Override
 	public String getCurrentTableName() {
+		
 		return GpAccountant.GP_ACCOUNTANT_TABLE_NAME;
+		
 	}
 	
 }

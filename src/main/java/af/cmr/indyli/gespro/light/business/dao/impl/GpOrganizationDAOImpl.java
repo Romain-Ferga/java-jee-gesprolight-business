@@ -11,7 +11,7 @@ import af.cmr.indyli.gespro.light.business.entity.GpOrganization;
 public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 	
 	private GpEntityManager entityManager = new GpEntityManager();
-
+	
 	@Override
 	public GpOrganization create(GpOrganization org) {
 		
@@ -31,20 +31,6 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 			
 			org.setId(orgId);
 			
-			String REQ_SQL_MAX_ID = "SELECT MAX(ORG_ID) AS MAX_ID FROM GP_ORGANIZATION";
-			
-			ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
-			
-			if(resultat!=null) {
-				
-				while(resultat.next()) {
-					
-					org.setId(resultat.getInt("MAX_ID"));
-					
-				}
-				
-			}
-			
 			entityManager.getDbConnect().setAutoCommit(true);
 				
 			}catch(SQLException e) {
@@ -62,7 +48,7 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 
 		String REQ_SQL = "UPDATE FROM GP_ORGANIZATION SET ORG_CODE=?, NAME=?, PHONE_NUMBER=?, CONTACT_NAME=?, CONTACT_EMAIL=?, ADR_WEB=? WHERE ORG_ID=?";
 		
-		Object[] tabParam = {org.getOrgCode(), org.getName(), org.getPhoneNumber(), org.getContactName(), org.getContactName(), org.getAdrWeb()};
+		Object[] tabParam = {org.getOrgCode(), org.getName(), org.getPhoneNumber(), org.getContactName(), org.getContactName(), org.getAdrWeb(), org.getId()};
 		
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);	
 		

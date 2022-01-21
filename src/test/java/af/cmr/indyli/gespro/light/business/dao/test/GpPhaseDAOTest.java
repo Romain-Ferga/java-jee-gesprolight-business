@@ -59,7 +59,7 @@ public class GpPhaseDAOTest {
 		this.createProjectManagerId = projectManager.getId();
 
 
-		// cration organisation
+		// creation organisation
 		GpOrganization organization = new GpOrganization();
 		Assert.assertNull(organization.getId());
 		organization.setOrgCode("ALPHA");
@@ -169,10 +169,10 @@ public class GpPhaseDAOTest {
 		this.projectManagerIdForAllTest = projectManager.getId();
 
 
-		// cration organisation
+		// creation organisation
 		GpOrganization organization = new GpOrganization();
 		Assert.assertNull(organization.getId());
-		organization.setOrgCode("ALPHA");
+		organization.setOrgCode("ALPHA BEFORE");
 		organization.setName("Big Org");
 		organization.setAdrWeb("bigorg.com");
 		organization.setContactEmail("big@org.com");
@@ -181,7 +181,7 @@ public class GpPhaseDAOTest {
 		organization = organizationDAO.create(organization);
 		this.orgIdForAllTest = organization.getId();
 
-		// cration project
+		// creation project
 		GpProject project = new GpProject();
 		Assert.assertNull(project.getId());
 		project.setProjectCode("Code-1");
@@ -197,7 +197,7 @@ public class GpPhaseDAOTest {
 		this.projectIdForAllTest = project.getId();
 		Assert.assertNotNull(project.getId());
 
-		//Creation de la phase
+		// Creation de la phase
 		GpPhase phaseToCreate = new GpPhase();
 		Assert.assertNull(phaseToCreate.getId());
 		phaseToCreate.setPhaseCode("PH_C0230");
@@ -209,6 +209,8 @@ public class GpPhaseDAOTest {
 		phaseToCreate.setGpProject(project);
 		this.phsDAO.create(phaseToCreate);
 		this.phaseIdForAllTest = phaseToCreate.getId();
+		Assert.assertNotNull(phaseToCreate.getId());
+		// TODO 7: Assert.assertNotNull(phaseToCreate.getId()); ?
 	}
 
 	@After

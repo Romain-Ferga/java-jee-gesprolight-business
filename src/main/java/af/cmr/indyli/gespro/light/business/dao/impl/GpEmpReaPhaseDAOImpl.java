@@ -18,7 +18,7 @@ public class GpEmpReaPhaseDAOImpl implements IGpEmpReaPhaseDAO {
 
 		String REQ_SQL = "INSERT INTO GP_EMP_REA_PHASE (CREATION_DATE, PHASE_ID, EMP_ID) VALUES (?,?,?)";
 		
-		Object[] tabParam = {erp.getCreationDate(), erp.getGpPhase(), erp.getGpEmployee()};
+		Object[] tabParam = {erp.getCreationDate(), erp.getGpPhase().getId(), erp.getGpEmployee().getId()};
 		
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
 		
@@ -31,7 +31,7 @@ public class GpEmpReaPhaseDAOImpl implements IGpEmpReaPhaseDAO {
 
 		String REQ_SQL = "UPDATE FROM GP_EMP_REA_PHASE SET CREATION_DATE=?, PHASE_ID=?, EMP_ID=? WHERE ASSO_REA_ID=?";
 		
-		Object[] tabParam = {erp.getCreationDate(), erp.getGpPhase(), erp.getGpEmployee()};
+		Object[] tabParam = {erp.getCreationDate(), erp.getGpPhase().getId(), erp.getGpEmployee().getId(), erp.getId()};
 		
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);	
 		

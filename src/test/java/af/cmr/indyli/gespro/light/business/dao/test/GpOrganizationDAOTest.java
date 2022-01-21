@@ -25,7 +25,7 @@ public class GpOrganizationDAOTest {
 		Assert.assertNull(org.getId());
 		
 		org.setOrgCode("org code");
-		org.setContactName("org name");
+		org.setName("org name");
 		org.setPhoneNumber(0606060606);
 		org.setContactName("contact name");
 		org.setContactEmail("contact email");
@@ -91,7 +91,7 @@ public class GpOrganizationDAOTest {
 		Assert.assertNull(org.getId());
 		
 		org.setOrgCode("org code [before test]");
-		org.setContactName("org name [before test]");
+		org.setName("org name [before test]");
 		org.setPhoneNumber(0606060606);
 		org.setContactName("contact name [before test]");
 		org.setContactEmail("contact email [before test]");

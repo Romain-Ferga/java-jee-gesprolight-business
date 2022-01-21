@@ -14,12 +14,30 @@ public class GpBillDAOImpl implements IGpBillDAO {
 
 	@Override
 	public GpBill create(GpBill bill) {
-
-		String REQ_SQL = "INSERT INTO GP_BILL (AMOUNT, BILL_CODE, BILL_STATUS, PHASE_ID) VALUES (?,?,?,?)";
 		
-		Object[] tabParam = {bill.getAmount(), bill.getBillCode(), bill.getBillStatus(), bill.getGpPhase()};
+		try {
 		
-		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
+			// On démarre une transaction
+			entityManager.getDbConnect().setAutoCommit(false);
+	
+			String REQ_SQL = "INSERT INTO GP_BILL (AMOUNT, BILL_CODE, BILL_STATUS, PHASE_ID) VALUES (?,?,?,?)";
+			
+			Object[] tabParam = {bill.getAmount(), bill.getBillCode(), bill.getBillStatus(), bill.getGpPhase().getId()};
+			
+			entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
+			
+			// On récupère le nouvel id
+			Integer billId = entityManager.findIdByAnyColumn("GP_BILL", "BILL_CODE", bill.getBillCode(), "BILL_ID");
+			
+			bill.setId(billId);
+			
+			entityManager.getDbConnect().setAutoCommit(true);
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
 		
 		return bill;
 		
@@ -30,7 +48,7 @@ public class GpBillDAOImpl implements IGpBillDAO {
 
 		String REQ_SQL = "UPDATE FROM GP_BILL SET AMOUNT=?, BILL_CODE=?, BILL_STATUS=?, PHASE_ID=? WHERE BILL_ID=?";
 		
-		Object[] tabParam = {bill.getAmount(), bill.getBillCode(), bill.getBillStatus(), bill.getGpPhase()};
+		Object[] tabParam = {bill.getAmount(), bill.getBillCode(), bill.getBillStatus(), bill.getGpPhase().getId(), bill.getId()};
 		
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);		
 		

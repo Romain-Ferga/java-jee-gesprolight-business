@@ -33,19 +33,21 @@ public class GpAddressDAOImpl implements IGpAddressDAO {
 	    	// On l'attribut à l'objet
 	    	addr.setId(addrId);
 	    	
-	    	String REQ_SQL_MAX_ID = "SELECT MAX(ADDRESS_ID) AS MAX_ID FROM GP_ADDRESS";
-	    	
-	    	ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
-	    	
-	    	if (resultat!=null) {
-	    		
-	    		while(resultat.next()) {
-	    			
-	    			addr.setId(resultat.getInt("MAX_ID"));
-	    			
-	    		}
-	    		
-	    	}
+			/*
+			 * String REQ_SQL_MAX_ID = "SELECT MAX(ADDRESS_ID) AS MAX_ID FROM GP_ADDRESS";
+			 * 
+			 * ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
+			 * 
+			 * if (resultat!=null) {
+			 * 
+			 * while(resultat.next()) {
+			 * 
+			 * addr.setId(resultat.getInt("MAX_ID"));
+			 * 
+			 * }
+			 * 
+			 * }
+			 */
 	    	
 	    	entityManager.getDbConnect().setAutoCommit(true);
 	    	
@@ -62,7 +64,7 @@ public class GpAddressDAOImpl implements IGpAddressDAO {
 	@Override
 	public void update(GpAddress addr) {
 		String REQ_SQL = "UPDATE FROM GP_ADDRESS SET STREET_NUMBER=? , STREET_LABEL=? , ZIP_CODE=? ,COUNTRY = ? ,IS_MAIN=? ,ORG_ID=? ,EMP_ID=?     WHERE ADDRESS_ID = ?";
-    	Object[] tabParam = {addr.getStreetNumber(), addr.getStreetLabel(), addr.getZipCode(), addr.getCountry(), addr.getIsMain(), addr.getGpOrganization(), addr.getGpEmployee()};
+    	Object[] tabParam = {addr.getStreetNumber(), addr.getStreetLabel(), addr.getZipCode(), addr.getCountry(), addr.getIsMain(), addr.getGpOrganization().getId(), addr.getGpEmployee().getId(), addr.getId()};
     	entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
 	}
 
@@ -120,12 +122,12 @@ public class GpAddressDAOImpl implements IGpAddressDAO {
 
 	public void deleteById(Integer addrId) {
 		
-		String REQ_SQL = "DELETE FROM gp_address WHERE ADDRESS_ID = ?";
+		String REQ_SQL = "DELETE FROM GP_ADDRESS WHERE ADDRESS_ID = ?";
     	Object[] tabParam = {addrId};
     	entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
     	
     	//On supprime ensuite dans la table mere
-    	String REQ_SQL_ADDR = "DELETE FROM gp_address WHERE ADDRESS_ID = ?";
+    	String REQ_SQL_ADDR = "DELETE FROM GP_ADDRESS WHERE ADDRESS_ID = ?";
     	
     	entityManager.updateAvecParamGenerique(REQ_SQL_ADDR, tabParam);
     	
@@ -134,7 +136,7 @@ public class GpAddressDAOImpl implements IGpAddressDAO {
 	@Override
 	public GpAddress findById(Integer addrId) {
 		
-		String REQ_SQL = "SELECT * FROM GP_ADDRESS where ADDRESS_ID = ?";
+		String REQ_SQL = "SELECT * FROM GP_ADDRESS WHERE ADDRESS_ID = ?";
 		Object[] tabParam = {addrId};
     	ResultSet resultat = entityManager.selectAvecParamGenerique(REQ_SQL, tabParam);
     	GpAddress foundAddr = null;
