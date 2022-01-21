@@ -9,7 +9,6 @@ import java.util.List;
 import af.cmr.indyli.gespro.light.business.dao.IGpAdminDAO;
 import af.cmr.indyli.gespro.light.business.entity.GpAccountant;
 import af.cmr.indyli.gespro.light.business.entity.GpAdmin;
-import af.cmr.indyli.gespro.light.business.entity.GpEmployee;
 
 public class GpAdminDAOImpl extends GpAbstractEmployeeDAOImpl<GpAdmin> implements IGpAdminDAO {
 	

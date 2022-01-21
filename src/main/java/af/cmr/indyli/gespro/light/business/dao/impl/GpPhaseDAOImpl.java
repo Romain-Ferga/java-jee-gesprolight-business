@@ -15,12 +15,44 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 
 	@Override
 	public GpPhase create(GpPhase phs) {
-
-		String REQ_SQL = "INSERT INTO GP_PHASE (PHASE_CODE, DESCRIPTION, START_DATE, END_DATE, AMOUNT, STATUS, IS_ENDED, CREATION_DATE, UPDATE_DATE, PROJECT_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		
-		Object[] tabParam = {phs.getPhaseCode(), phs.getDescription(), phs.getStartDate(), phs.getEndDate(), phs.getAmount(), phs.getStatus(), phs.getIsEnded(), phs.getCreationDate(), phs.getUpdateDate(), phs.getGpProject()};
-		
-		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
+		try {
+			
+			// On démarre une transaction
+			entityManager.getDbConnect().setAutoCommit(false);	
+				
+			String REQ_SQL = "INSERT INTO GP_PHASE (PHASE_CODE, DESCRIPTION, START_DATE, END_DATE, AMOUNT, STATUS, IS_ENDED, CREATION_DATE, UPDATE_DATE, PROJECT_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			
+			Object[] tabParam = {phs.getPhaseCode(), phs.getDescription(), phs.getStartDate(), phs.getEndDate(), phs.getAmount(), phs.getStatus(), phs.getIsEnded(), phs.getCreationDate(), phs.getUpdateDate(), phs.getGpProject()};
+			
+			entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
+			
+			// On récupère le nouvel id
+			Integer phsId = entityManager.findIdByAnyColumn("GP_PHASE", "PHASE_CODE", phs.getPhaseCode(), "PHASE_ID");
+			
+			phs.setId(phsId);
+			
+			String REQ_SQL_MAX_ID = "SELECT MAX(PHASE_ID) AS MAX_ID FROM GP_PHASE";
+			
+			ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
+			
+			if(resultat != null) {
+				
+				while(resultat.next()) {
+					
+					phs.setId(resultat.getInt("MAX_ID"));
+					
+				}
+				
+			}
+			
+			entityManager.getDbConnect().setAutoCommit(false);
+			
+			}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
 		
 		return phs;
 		

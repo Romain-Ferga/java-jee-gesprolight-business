@@ -34,6 +34,8 @@ public class GpTechnicianDAOTest {
 		tech.setPassword("myPassword");
 		tech.setEmail("guillaume.peltierAcc@gouv.fr");
 		tech.setLogin("guillaume.peltierAcc");
+		tech.setLastDiploma("Master");
+		tech.setGraduationYear(2022);
 
 		// When
 		tech = techDAO.create(tech);
@@ -100,6 +102,8 @@ public class GpTechnicianDAOTest {
 		tech.setPassword("myThirdPassword");
 		tech.setEmail("laurent.fabius@gouv.fr");
 		tech.setLogin("laurent.fabius");
+		tech.setLastDiploma("Master");
+		tech.setGraduationYear(2022);
 		
 		tech = techDAO.create(tech) ;
 		

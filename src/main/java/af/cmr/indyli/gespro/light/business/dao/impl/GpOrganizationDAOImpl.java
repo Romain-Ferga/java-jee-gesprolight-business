@@ -14,14 +14,46 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 
 	@Override
 	public GpOrganization create(GpOrganization org) {
-
-		String REQ_SQL = "INSERT INTO GP_ORGANIZATION (ORG_CODE, NAME, PHONE_NUMBER, CONTACT_NAME, CONTACT_EMAIL, ADR_WEB) VALUES (?,?,?,?,?,?)";
 		
-		Object[] tabParam = {org.getOrgCode(), org.getName(), org.getPhoneNumber(), org.getContactName(), org.getContactEmail(), org.getAdrWeb()};
-		
-		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
-		
-		return org;
+		try {
+			
+			// On démarre une transaction
+			entityManager.getDbConnect().setAutoCommit(false);
+	
+			String REQ_SQL = "INSERT INTO GP_ORGANIZATION (ORG_CODE, NAME, PHONE_NUMBER, CONTACT_NAME, CONTACT_EMAIL, ADR_WEB) VALUES (?,?,?,?,?,?)";
+			
+			Object[] tabParam = {org.getOrgCode(), org.getName(), org.getPhoneNumber(), org.getContactName(), org.getContactEmail(), org.getAdrWeb()};
+			
+			entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
+			
+			// On récupère le nouvel id
+			Integer orgId = entityManager.findIdByAnyColumn("GP_ORGANIZATION", "ORG_CODE", org.getOrgCode(), "ORG_ID");
+			
+			org.setId(orgId);
+			
+			String REQ_SQL_MAX_ID = "SELECT MAX(ORG_ID) AS MAX_ID FROM GP_ORGANIZATION";
+			
+			ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
+			
+			if(resultat!=null) {
+				
+				while(resultat.next()) {
+					
+					org.setId(resultat.getInt("MAX_ID"));
+					
+				}
+				
+			}
+			
+			entityManager.getDbConnect().setAutoCommit(true);
+				
+			}catch(SQLException e) {
+				
+				e.printStackTrace();
+				
+			}
+			
+			return org;
 		
 	}
 

@@ -23,9 +23,9 @@ public class GpTechnicianDAOImpl extends GpAbstractEmployeeDAOImpl<GpTechnician>
 			tech = super.create(tech);
 			
 			// On enregistre l'id dans la table comptable
-			String REQ_SQL = "INSERT INTO GP_TECHNICIAN (EMP_ID) VALUES (?)";
+			String REQ_SQL = "INSERT INTO GP_TECHNICIAN (EMP_ID, LAST_DIPLOMA, GRADUATION_YEAR) VALUES (?,?,?)";
 			
-	    	Object[] tabParam = {tech.getId()};
+	    	Object[] tabParam = {tech.getId(), tech.getLastDiploma(), tech.getGraduationYear()};
 	    	
 	    	this.getEntityManager().updateAvecParamGenerique(REQ_SQL, tabParam);
 	    	

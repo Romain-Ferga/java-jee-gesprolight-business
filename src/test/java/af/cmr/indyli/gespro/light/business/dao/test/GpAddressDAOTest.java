@@ -12,6 +12,7 @@ import af.cmr.indyli.gespro.light.business.dao.IGpAddressDAO;
 import af.cmr.indyli.gespro.light.business.dao.impl.GpAddressDAOImpl;
 import af.cmr.indyli.gespro.light.business.entity.GpAddress;
 import af.cmr.indyli.gespro.light.business.entity.GpEmployee;
+import af.cmr.indyli.gespro.light.business.entity.GpOrganization;
 
 public class GpAddressDAOTest {
 
@@ -94,7 +95,7 @@ public class GpAddressDAOTest {
 		
 		GpAddress addr = new GpAddress();
 		GpEmployee emp = new GpEmployee();
-		//GpOrganization org = new GpOrganization();
+		GpOrganization org = new GpOrganization();
 		
 		Assert.assertNull(addr.getId());
 		
@@ -106,7 +107,7 @@ public class GpAddressDAOTest {
 		addr.setStreetNumber(5);
 		addr.setZipCode(75000);
 		addr.setGpEmployee(emp);
-		//addr.setGpOrganization(org);
+		addr.setGpOrganization(org);
 		
 		addr = addrDAO.create(addr) ;
 		

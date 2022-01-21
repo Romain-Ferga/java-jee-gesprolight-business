@@ -2,8 +2,11 @@ package af.cmr.indyli.gespro.light.business.dao.test;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.impl.GpDeliverableDAOImpl;
@@ -22,11 +25,11 @@ public class GpDeliverableDAOTest {
 		
 		// Given
 		GpDeliverable dlvb = new GpDeliverable();
+		Assert.assertNull(dlvb.getId());
 		
 		Integer phsId = 1; // à définir dans le before
 		GpPhase phs = new GpPhaseDAOImpl().findById(phsId);
-		
-		Assert.assertNull(dlvb.getId());
+		Assert.assertTrue(phs.getId() == phsId);
 		
 		dlvb.setDelCode("dlvb code");
 		dlvb.setLabel("dlvb label");
@@ -85,6 +88,42 @@ public class GpDeliverableDAOTest {
 		
 		// Then
 		Assert.assertNull(dlvb);
+		
+	}
+	
+	@Before
+	public void prepareAllEntityBefore() {
+		
+		GpDeliverable dlvb = new GpDeliverable();
+		Assert.assertNull(dlvb.getId());
+		
+		Integer phsId = 1;
+		GpPhase phs = new GpPhaseDAOImpl().findById(phsId);
+		Assert.assertTrue(phs.getId() == phsId);
+		
+		dlvb.setDelCode("dlvb code [before test]");
+		dlvb.setLabel("dlvb label [before test]");
+		dlvb.setDescription("dlvb description [before test]");
+		dlvb.setDelPath("dlvb path [before test]");
+		dlvb.setCreationDate(new Date());
+		dlvb.setGpPhase(phs);
+		
+		dlvb = dlvbDAO.create(dlvb);
+		
+		this.dlvbIdForAllTest = dlvb.getId();
+		
+	}
+	
+	@After
+	public void deleteAllEntityAfter() {
+		
+		this.dlvbDAO.deleteById(this.dlvbIdForAllTest);
+		
+		if(!Objects.isNull(this.createDlvbId)) {
+			
+			this.dlvbDAO.deleteById(this.createDlvbId);
+			
+		}
 		
 	}
 

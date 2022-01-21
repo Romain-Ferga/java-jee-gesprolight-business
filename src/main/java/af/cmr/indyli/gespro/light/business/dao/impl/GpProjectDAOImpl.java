@@ -15,12 +15,45 @@ public class GpProjectDAOImpl implements IGpProjectDAO {
 
 	@Override
 	public GpProject create(GpProject prj) {
-
-		String REQ_SQL = "INSERT INTO GP_PROJECT (PROJECT_CODE, NAME, DESCRIPTION, START_DATE, END_DATE, AMOUNT, CREATION_DATE, UPDATE_DATE, ORG_ID, EMP_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		
-		Object[] tabParam = {prj.getProjectCode(), prj.getName(), prj.getDescription(), prj.getStartDate(), prj.getEndDate(), prj.getAmount(), prj.getCreationDate(), prj.getUpdateDate(), prj.getGpOrganization(), prj.getGpChefProjet()};
+		try {
 		
-		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
+			// On démarre une transaction
+			entityManager.getDbConnect().setAutoCommit(false);
+	
+			String REQ_SQL = "INSERT INTO GP_PROJECT (PROJECT_CODE, NAME, DESCRIPTION, START_DATE, END_DATE, AMOUNT, CREATION_DATE, UPDATE_DATE, ORG_ID, EMP_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			
+			Object[] tabParam = {prj.getProjectCode(), prj.getName(), prj.getDescription(), prj.getStartDate(), prj.getEndDate(), prj.getAmount(), prj.getCreationDate(), prj.getUpdateDate(), prj.getGpOrganization().getId(), prj.getGpChefProjet().getId()};
+			
+			entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
+			
+			// On récupère le nouvel id
+			Integer prjId = entityManager.findIdByAnyColumn("GP_PROJECT", "PROJECT_CODE", prj.getProjectCode(), "PROJECT_ID");
+			
+			prj.setId(prjId);
+			
+			// On récupère le max id
+			String REQ_SQL_MAX_ID = "SELECT MAX(PROJECT_ID) AS MAX_ID FROM GP_PROJECT";
+			
+			ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
+			
+			if(resultat != null) {
+				
+				while(resultat.next()) {
+					
+					prj.setId(resultat.getInt("MAX_ID"));
+					
+				}
+				
+			}
+			
+			entityManager.getDbConnect().setAutoCommit(true);
+			
+		}catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
 		
 		return prj;
 		

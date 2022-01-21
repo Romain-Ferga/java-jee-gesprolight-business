@@ -1,8 +1,11 @@
 package af.cmr.indyli.gespro.light.business.dao.test;
 
 import java.util.List;
+import java.util.Objects;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.impl.GpOrganizationDAOImpl;
@@ -19,7 +22,6 @@ public class GpOrganizationDAOTest {
 		
 		// Given
 		GpOrganization org = new GpOrganization();
-		
 		Assert.assertNull(org.getId());
 		
 		org.setOrgCode("org code");
@@ -79,6 +81,38 @@ public class GpOrganizationDAOTest {
 		
 		// Then
 		Assert.assertNull(org);
+		
+	}
+	
+	@Before
+	public void prepareAllEntityBefore() {
+		
+		GpOrganization org = new GpOrganization();
+		Assert.assertNull(org.getId());
+		
+		org.setOrgCode("org code [before test]");
+		org.setContactName("org name [before test]");
+		org.setPhoneNumber(0606060606);
+		org.setContactName("contact name [before test]");
+		org.setContactEmail("contact email [before test]");
+		org.setAdrWeb("org address [before test]");
+		
+		org = orgDAO.create(org);
+		
+		this.orgIdForAllTest = org.getId();
+		
+	}
+	
+	@After
+	public void deleteAllEntityAfter() {
+		
+		this.orgDAO.deleteById(this.orgIdForAllTest);
+		
+		if(!Objects.isNull(this.createOrgId)) {
+			
+			this.orgDAO.deleteById(this.createOrgId);
+			
+		}
 		
 	}
 
