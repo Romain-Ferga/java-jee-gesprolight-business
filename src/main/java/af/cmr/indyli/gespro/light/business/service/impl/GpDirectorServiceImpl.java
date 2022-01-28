@@ -12,7 +12,6 @@ public class GpDirectorServiceImpl implements IGpEmployeeService<GpDirector> {
 
 	private IGpDirectorDAO dirDAO = new GpDirectorDAOImpl();
 
-	@Override
 	public GpDirector create(GpDirector dir) throws GesproBusinessException {
 		
 		if (this.dirDAO.ifEmpExistByFileNumberOrEmail(dir.getFileNumber(), dir.getEmail(), dir.getLogin())) {
@@ -25,27 +24,23 @@ public class GpDirectorServiceImpl implements IGpEmployeeService<GpDirector> {
 		
 	}
 
-	@Override
 	public void update(GpDirector dir) throws GesproBusinessException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public List<GpDirector> findAll() {
 
 		return this.dirDAO.findAll();
 		
 	}
 
-	@Override
 	public void deleteById(Integer dirId) {
 
 		this.dirDAO.deleteById(dirId);
 		
 	}
 
-	@Override
 	public GpDirector findById(Integer dirId) {
 
 		return this.dirDAO.findById(dirId);

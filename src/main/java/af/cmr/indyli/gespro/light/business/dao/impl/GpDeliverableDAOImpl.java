@@ -13,7 +13,6 @@ public class GpDeliverableDAOImpl implements IGpDeliverableDAO {
 	
 	private GpEntityManager entityManager = new GpEntityManager();
 
-	@Override
 	public GpDeliverable create(GpDeliverable dlvb) {
 
 		String REQ_SQL = "INSERT INTO GP_DELIVERABLE (DEL_CODE, LABEL, DESCRIPTION, DEL_PATH, CREATION_DATE, PHASE_ID) VALUES (?,?,?,?,?,?)";
@@ -26,7 +25,6 @@ public class GpDeliverableDAOImpl implements IGpDeliverableDAO {
 		
 	}
 
-	@Override
 	public void update(GpDeliverable dlvb) {
 
 		String REQ_SQL = "UPDATE FROM GP_DELIVERABLE SET DEL_CODE=?, LABEL=?, DESCRIPTION=?, DEL_PATH=?, CREATION_DATE=?, PHASE_ID=? WHERE DEL_ID=?";
@@ -37,7 +35,6 @@ public class GpDeliverableDAOImpl implements IGpDeliverableDAO {
 		
 	}
 
-	@Override
 	public List<GpDeliverable> findAll() {
 
 		String REQ_SQL = "SELECT * FROM GP_DELIVERABLE";
@@ -89,7 +86,6 @@ public class GpDeliverableDAOImpl implements IGpDeliverableDAO {
 		
 	}
 
-	@Override
 	public void deleteById(Integer dlvbId) {
 
 		String REQ_SQL = "DELETE FROM GP_DELIVERABLE WHERE DEL_ID = ?";
@@ -100,7 +96,6 @@ public class GpDeliverableDAOImpl implements IGpDeliverableDAO {
 		
 	}
 
-	@Override
 	public GpDeliverable findById(Integer dlvbId) {
 
 		String REQ_SQL = "SELECT * FROM GP_DELIVERABLE WHERE DEL_ID = ?";
@@ -151,7 +146,6 @@ public class GpDeliverableDAOImpl implements IGpDeliverableDAO {
 		
 	}
 
-	@Override
 	public boolean ifDlvbExistByDlvbCode(String dlvbCode) {
 
 		Integer delIdByDlvbCode = entityManager.findIdByAnyColumn("GP_DELIVERABLE", "DEL_CODE", dlvbCode, "DEL_ID");

@@ -39,9 +39,9 @@ public class GpProjectDAOTest {
 		// Given
 		GpProject project = new GpProject();
 		Assert.assertNull(project.getId());
-		project.setProjectCode("Code-1");
-		project.setName("Project-1");
-		project.setDescription("First Project");
+		project.setProjectCode("Code2");
+		project.setName("Project2");
+		project.setDescription("SecondProject");
 		project.setStartDate(new Date());
 		project.setEndDate(new Date());
 		project.setAmount(5623.66);
@@ -119,7 +119,6 @@ public class GpProjectDAOTest {
 
 		// Init GpProjetManager
 		GpProjectManager emp = new GpProjectManager();
-		Assert.assertNull(emp.getId());
 		emp.setFileNumber("1050");
 		emp.setLastname("Segolene");
 		emp.setFirstname("ROYAL");
@@ -151,9 +150,9 @@ public class GpProjectDAOTest {
 		// creation project
 		GpProject project = new GpProject();
 		Assert.assertNull(project.getId());
-		project.setProjectCode("Code-1");
-		project.setName("Project-1");
-		project.setDescription("First Project");
+		project.setProjectCode("Code1");
+		project.setName("Project1");
+		project.setDescription("FirstProject");
 		project.setStartDate(new Date());
 		project.setEndDate(new Date());
 		project.setAmount(5623.66);

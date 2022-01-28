@@ -12,7 +12,6 @@ public class GpSecretaryServiceImpl implements IGpEmployeeService<GpSecretary> {
 
 	private IGpSecretaryDAO secrDAO = new GpSecretaryDAOImpl();
 
-	@Override
 	public GpSecretary create(GpSecretary secr) throws GesproBusinessException {
 		
 		if (this.secrDAO.ifEmpExistByFileNumberOrEmail(secr.getFileNumber(), secr.getEmail(), secr.getLogin())) {
@@ -25,27 +24,23 @@ public class GpSecretaryServiceImpl implements IGpEmployeeService<GpSecretary> {
 		
 	}
 
-	@Override
 	public void update(GpSecretary secr) throws GesproBusinessException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public List<GpSecretary> findAll() {
 
 		return this.secrDAO.findAll();
 		
 	}
 
-	@Override
 	public void deleteById(Integer secrId) {
 
 		this.secrDAO.deleteById(secrId);
 		
 	}
 
-	@Override
 	public GpSecretary findById(Integer secrId) {
 
 		return this.secrDAO.findById(secrId);

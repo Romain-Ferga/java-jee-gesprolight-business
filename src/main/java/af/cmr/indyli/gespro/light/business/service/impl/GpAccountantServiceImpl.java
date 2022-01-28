@@ -12,7 +12,6 @@ public class GpAccountantServiceImpl implements IGpEmployeeService<GpAccountant>
 
 	private IGpAccountantDAO accDAO = new GpAccountantDAOImpl();
 
-	@Override
 	public GpAccountant create(GpAccountant acc) throws GesproBusinessException {
 		
 		if (this.accDAO.ifEmpExistByFileNumberOrEmail(acc.getFileNumber(), acc.getEmail(), acc.getLogin())) {
@@ -25,27 +24,24 @@ public class GpAccountantServiceImpl implements IGpEmployeeService<GpAccountant>
 		
 	}
 
-	@Override
 	public void update(GpAccountant acc) throws GesproBusinessException {
-		// TODO Auto-generated method stub
+
+		this.accDAO.update(acc);
 		
 	}
 
-	@Override
 	public List<GpAccountant> findAll() {
 
 		return this.accDAO.findAll();
 		
 	}
 
-	@Override
 	public void deleteById(Integer accId) {
 
 		this.accDAO.deleteById(accId);
 		
 	}
 
-	@Override
 	public GpAccountant findById(Integer accId) {
 
 		return this.accDAO.findById(accId);

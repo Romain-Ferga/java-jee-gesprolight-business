@@ -12,7 +12,6 @@ public class GpBillDAOImpl implements IGpBillDAO {
 	
 	private GpEntityManager entityManager = new GpEntityManager();
 
-	@Override
 	public GpBill create(GpBill bill) {
 		
 		try {
@@ -43,7 +42,6 @@ public class GpBillDAOImpl implements IGpBillDAO {
 		
 	}
 
-	@Override
 	public void update(GpBill bill) {
 
 		String REQ_SQL = "UPDATE FROM GP_BILL SET AMOUNT=?, BILL_CODE=?, BILL_STATUS=?, PHASE_ID=? WHERE BILL_ID=?";
@@ -54,7 +52,6 @@ public class GpBillDAOImpl implements IGpBillDAO {
 		
 	}
 
-	@Override
 	public List<GpBill> findAll() {
 
 		String REQ_SQL = "SELECT * FROM GP_BILL";
@@ -102,7 +99,6 @@ public class GpBillDAOImpl implements IGpBillDAO {
 		
 	}
 
-	@Override
 	public void deleteById(Integer billId) {
 
 		String REQ_SQL = "DELETE FROM GP_BILL WHERE BILL_ID = ?";
@@ -112,7 +108,6 @@ public class GpBillDAOImpl implements IGpBillDAO {
 		entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
 	}
 
-	@Override
 	public GpBill findById(Integer billId) {
 
 		String REQ_SQL = "SELECT * FROM GP_BILL WHERE BILL_ID = ?";
@@ -159,7 +154,6 @@ public class GpBillDAOImpl implements IGpBillDAO {
 		
 	}
 
-	@Override
 	public boolean ifBillExistBillCode(String billCode) {
 
 		Integer billIdByBillCode = entityManager.findIdByAnyColumn("GP_BILL", "BILL_CODE", billCode, "BILL_ID");

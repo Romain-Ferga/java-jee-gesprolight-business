@@ -12,7 +12,6 @@ public class GpAdminServiceImpl implements IGpEmployeeService<GpAdmin> {
 
 	private IGpAdminDAO admDAO = new GpAdminDAOImpl();
 
-	@Override
 	public GpAdmin create(GpAdmin adm) throws GesproBusinessException {
 		
 		if (this.admDAO.ifEmpExistByFileNumberOrEmail(adm.getFileNumber(), adm.getEmail(), adm.getLogin())) {
@@ -25,27 +24,24 @@ public class GpAdminServiceImpl implements IGpEmployeeService<GpAdmin> {
 		
 	}
 
-	@Override
 	public void update(GpAdmin adm) throws GesproBusinessException {
-		// TODO Auto-generated method stub
+
+		this.admDAO.update(adm);
 		
 	}
 
-	@Override
 	public List<GpAdmin> findAll() {
 
 		return this.admDAO.findAll();
 		
 	}
 
-	@Override
 	public void deleteById(Integer admId) {
 
 		this.admDAO.deleteById(admId);
 		
 	}
 
-	@Override
 	public GpAdmin findById(Integer admId) {
 
 		return this.admDAO.findById(admId);

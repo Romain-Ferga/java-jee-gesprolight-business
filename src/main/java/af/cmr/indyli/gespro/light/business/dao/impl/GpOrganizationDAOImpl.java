@@ -12,7 +12,6 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 	
 	private GpEntityManager entityManager = new GpEntityManager();
 	
-	@Override
 	public GpOrganization create(GpOrganization org) {
 		
 		try {
@@ -43,7 +42,6 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 		
 	}
 
-	@Override
 	public void update(GpOrganization org) {
 
 		String REQ_SQL = "UPDATE FROM GP_ORGANIZATION SET ORG_CODE=?, NAME=?, PHONE_NUMBER=?, CONTACT_NAME=?, CONTACT_EMAIL=?, ADR_WEB=? WHERE ORG_ID=?";
@@ -54,7 +52,6 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 		
 	}
 
-	@Override
 	public List<GpOrganization> findAll() {
 
 		String REQ_SQL = "SELECT * FROM GP_ORGANIZATION";
@@ -105,7 +102,6 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 		
 	}
 
-	@Override
 	public void deleteById(Integer orgId) {
 
 		String REQ_SQL = "DELETE FROM GP_ORGANIZATION WHERE ORG_ID = ?";
@@ -116,7 +112,6 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 		
 	}
 
-	@Override
 	public GpOrganization findById(Integer orgId) {
 
 		String REQ_SQL = "SELECT * FROM GP_ORGANIZATION WHERE ORG_ID = ?";
@@ -166,7 +161,6 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 		
 	}
 
-	@Override
 	public boolean ifOrgExistByOrgCode(String orgCode) {
 
 		Integer orgIdByOrgCode = entityManager.findIdByAnyColumn("GP_ORGANIZATION", "ORG_CODE", orgCode, "ORG_ID");

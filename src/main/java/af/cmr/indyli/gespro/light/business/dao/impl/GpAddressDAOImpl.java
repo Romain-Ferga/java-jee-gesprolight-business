@@ -12,7 +12,6 @@ public class GpAddressDAOImpl implements IGpAddressDAO {
 
 	private GpEntityManager entityManager = new GpEntityManager();
 
-	@Override
 	public GpAddress create(GpAddress addr) {
 		
 		try {
@@ -61,14 +60,12 @@ public class GpAddressDAOImpl implements IGpAddressDAO {
 
 	}
 
-	@Override
 	public void update(GpAddress addr) {
 		String REQ_SQL = "UPDATE FROM GP_ADDRESS SET STREET_NUMBER=? , STREET_LABEL=? , ZIP_CODE=? ,COUNTRY = ? ,IS_MAIN=? ,ORG_ID=? ,EMP_ID=?     WHERE ADDRESS_ID = ?";
     	Object[] tabParam = {addr.getStreetNumber(), addr.getStreetLabel(), addr.getZipCode(), addr.getCountry(), addr.getIsMain(), addr.getGpOrganization().getId(), addr.getGpEmployee().getId(), addr.getId()};
     	entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
 	}
 
-	@Override
 	public List<GpAddress> findAll() {
 		String REQ_SQL = "SELECT * FROM GP_ADDRESS";
     	ResultSet resultat = entityManager.exec(REQ_SQL);
@@ -133,7 +130,6 @@ public class GpAddressDAOImpl implements IGpAddressDAO {
     	
 	}
 
-	@Override
 	public GpAddress findById(Integer addrId) {
 		
 		String REQ_SQL = "SELECT * FROM GP_ADDRESS WHERE ADDRESS_ID = ?";

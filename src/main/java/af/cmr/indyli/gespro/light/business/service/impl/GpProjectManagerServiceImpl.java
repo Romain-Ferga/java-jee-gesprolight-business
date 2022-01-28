@@ -12,7 +12,6 @@ public class GpProjectManagerServiceImpl implements IGpEmployeeService<GpProject
 
 	private IGpProjectManagerDAO pmDAO = new GpProjectManagerDAOImpl();
 
-	@Override
 	public GpProjectManager create(GpProjectManager pm) throws GesproBusinessException {
 		
 		if (this.pmDAO.ifEmpExistByFileNumberOrEmail(pm.getFileNumber(), pm.getEmail(), pm.getLogin())) {
@@ -25,27 +24,23 @@ public class GpProjectManagerServiceImpl implements IGpEmployeeService<GpProject
 		
 	}
 
-	@Override
 	public void update(GpProjectManager pm) throws GesproBusinessException {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public List<GpProjectManager> findAll() {
 
 		return this.pmDAO.findAll();
 		
 	}
 
-	@Override
 	public void deleteById(Integer pmId) {
 
 		this.pmDAO.deleteById(pmId);
 		
 	}
 
-	@Override
 	public GpProjectManager findById(Integer pmId) {
 
 		return this.pmDAO.findById(pmId);

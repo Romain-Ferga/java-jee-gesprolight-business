@@ -44,7 +44,7 @@ public class GpDirectorDAOImpl extends GpAbstractEmployeeDAOImpl<GpDirector> imp
 	@Override
 	public void update(GpDirector dir) {
 		
-		//super.update(acc);
+		super.update(dir);
     	
 	}
 

@@ -13,7 +13,6 @@ public class GpEmpReaPhaseDAOImpl implements IGpEmpReaPhaseDAO {
 	
 	private GpEntityManager entityManager = new GpEntityManager();
 
-	@Override
 	public GpEmpReaPhase create(GpEmpReaPhase erp) {
 
 		String REQ_SQL = "INSERT INTO GP_EMP_REA_PHASE (CREATION_DATE, PHASE_ID, EMP_ID) VALUES (?,?,?)";
@@ -26,7 +25,6 @@ public class GpEmpReaPhaseDAOImpl implements IGpEmpReaPhaseDAO {
 		
 	}
 
-	@Override
 	public void update(GpEmpReaPhase erp) {
 
 		String REQ_SQL = "UPDATE FROM GP_EMP_REA_PHASE SET CREATION_DATE=?, PHASE_ID=?, EMP_ID=? WHERE ASSO_REA_ID=?";
@@ -37,7 +35,6 @@ public class GpEmpReaPhaseDAOImpl implements IGpEmpReaPhaseDAO {
 		
 	}
 
-	@Override
 	public List<GpEmpReaPhase> findAll() {
 
 		String REQ_SQL = "SELECT * FROM GP_EMP_REA_PHASE";
@@ -84,7 +81,6 @@ public class GpEmpReaPhaseDAOImpl implements IGpEmpReaPhaseDAO {
 
 	}
 
-	@Override
 	public void deleteById(Integer erpId) {
 
 		String REQ_SQL = "DELETE FROM GP_EMP_REA_PHASE WHERE ASSO_REA_ID = ?";
@@ -95,7 +91,6 @@ public class GpEmpReaPhaseDAOImpl implements IGpEmpReaPhaseDAO {
 		
 	}
 
-	@Override
 	public GpEmpReaPhase findById(Integer erpId) {
 		
 		String REQ_SQL = "SELECT * FROM GP_EMP_REA_PHASE WHERE ASSO_REA_ID = ?";

@@ -13,7 +13,6 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 	
 	private GpEntityManager entityManager = new GpEntityManager();
 
-	@Override
 	public GpPhase create(GpPhase phs) {
 		
 		try {
@@ -60,7 +59,6 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 		
 	}
 
-	@Override
 	public void update(GpPhase phs) {
 
 		String REQ_SQL = "UPDATE FROM GP_PHASE SET PHASE_CODE=?, DESCRIPTION=?, START_DATE=?, END_DATE=?, AMOUNT=?, STATUS=?, IS_ENDED=?, CREATION_DATE=?, UPDATE_DATE=?, PROJECT_ID=? WHERE PHASE_ID=?";
@@ -71,7 +69,6 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 		
 	}
 
-	@Override
 	public List<GpPhase> findAll() {
 
 		String REQ_SQL = "SELECT * FROM GP_PHASE";
@@ -131,7 +128,6 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 		
 	}
 
-	@Override
 	public void deleteById(Integer phsId) {
 
 		String REQ_SQL = "DELETE FROM GP_PHASE WHERE PHASE_ID = ?";
@@ -142,7 +138,6 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 		
 	}
 
-	@Override
 	public GpPhase findById(Integer phsId) {
 
 		String REQ_SQL = "SELECT * FROM GP_PHASE WHERE PHASE_ID = ?";
@@ -201,7 +196,6 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 		
 	}
 
-	@Override
 	public boolean ifPhsExistByPhaseCode(String phaseCode) {
 
 		Integer phsIdByPhsCode = entityManager.findIdByAnyColumn("GP_PHASE", "PHASE_CODE", phaseCode, "PHASE_ID");
