@@ -16,7 +16,7 @@ public class GpProjectManagerServiceImpl implements IGpEmployeeService<GpProject
 		
 		if (this.pmDAO.ifEmpExistByFileNumberOrEmail(pm.getFileNumber(), pm.getEmail(), pm.getLogin())) {
 			
-			throw new GesproBusinessException(String.format("Un comptable existe deja avec cet email[%s] ou ce login[%s] ou ce matricule[%s]",pm.getEmail(),pm.getLogin(),pm.getFileNumber()));
+			throw new GesproBusinessException(String.format("Un Chef de Projet existe deja avec cet email[%s] ou ce login[%s] ou ce matricule[%s]",pm.getEmail(),pm.getLogin(),pm.getFileNumber()));
 		
 		}
 		

@@ -16,7 +16,7 @@ public class GpAccountantServiceImpl implements IGpEmployeeService<GpAccountant>
 		
 		if (this.accDAO.ifEmpExistByFileNumberOrEmail(acc.getFileNumber(), acc.getEmail(), acc.getLogin())) {
 			
-			throw new GesproBusinessException(String.format("Un comptable existe deja avec cet email[%s] ou ce login[%s] ou ce matricule[%s]",acc.getEmail(),acc.getLogin(),acc.getFileNumber()));
+			throw new GesproBusinessException(String.format("Un Comptable existe deja avec cet email[%s] ou ce login[%s] ou ce matricule[%s]",acc.getEmail(),acc.getLogin(),acc.getFileNumber()));
 		
 		}
 		

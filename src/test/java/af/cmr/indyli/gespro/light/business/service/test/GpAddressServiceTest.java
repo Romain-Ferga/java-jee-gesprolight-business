@@ -1,4 +1,4 @@
-package af.cmr.indyli.gespro.light.business.dao.test;
+package af.cmr.indyli.gespro.light.business.service.test;
 
 import java.util.List;
 import java.util.Objects;
@@ -8,21 +8,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import af.cmr.indyli.gespro.light.business.dao.IGpAddressDAO;
-import af.cmr.indyli.gespro.light.business.dao.IGpEmployeeDAO;
-import af.cmr.indyli.gespro.light.business.dao.IGpOrganizationDAO;
-import af.cmr.indyli.gespro.light.business.dao.impl.GpAddressDAOImpl;
-import af.cmr.indyli.gespro.light.business.dao.impl.GpEmployeeDAOImpl;
-import af.cmr.indyli.gespro.light.business.dao.impl.GpOrganizationDAOImpl;
 import af.cmr.indyli.gespro.light.business.entity.GpAddress;
 import af.cmr.indyli.gespro.light.business.entity.GpEmployee;
 import af.cmr.indyli.gespro.light.business.entity.GpOrganization;
+import af.cmr.indyli.gespro.light.business.exception.GesproBusinessException;
+import af.cmr.indyli.gespro.light.business.service.IGpAddressService;
+import af.cmr.indyli.gespro.light.business.service.IGpEmployeeService;
+import af.cmr.indyli.gespro.light.business.service.IGpOrganizationService;
+import af.cmr.indyli.gespro.light.business.service.impl.GpAddressServiceImpl;
+import af.cmr.indyli.gespro.light.business.service.impl.GpEmployeeServiceImpl;
+import af.cmr.indyli.gespro.light.business.service.impl.GpOrganizationServiceImpl;
 
-public class GpAddressDAOTest {
+public class GpAddressServiceTest {
 
-	private IGpAddressDAO addrDAO = new GpAddressDAOImpl();
-	private IGpOrganizationDAO organizationDAO = new GpOrganizationDAOImpl();
-	private IGpEmployeeDAO<GpEmployee> empDAO = new GpEmployeeDAOImpl();
+	private IGpAddressService addrService = new GpAddressServiceImpl();
+	private IGpOrganizationService organizationService = new GpOrganizationServiceImpl();
+	private IGpEmployeeService<GpEmployee> empService = new GpEmployeeServiceImpl();
 	
 	private Integer addrIdForAllTest = null;
 	private Integer createdAddrId = null;
@@ -34,7 +35,7 @@ public class GpAddressDAOTest {
 	private Integer createdEmpId = null;
 
 	@Test
-	public void testCreateAddressWithSuccess() {
+	public void testCreateAddressWithSuccess() throws GesproBusinessException {
 		
 		// Given
 		GpAddress addr = new GpAddress();
@@ -51,7 +52,7 @@ public class GpAddressDAOTest {
 		org.setContactEmail("big@org.com");
 		org.setContactName("CName");
 		org.setPhoneNumber(7895);
-		org = organizationDAO.create(org);
+		org = organizationService.create(org);
 		this.createdOrgId = org.getId();
 		Assert.assertNotNull(org.getId());
 		
@@ -64,7 +65,7 @@ public class GpAddressDAOTest {
 		emp.setPassword("myExPresidentPassword");
 		emp.setEmail("george.pompidou@gouv.fr");
 		emp.setLogin("george.pomp");
-		emp = empDAO.create(emp);
+		emp = empService.create(emp);
 		this.createdEmpId = emp.getId();
 		Assert.assertNotNull(emp.getId());
 		
@@ -80,7 +81,7 @@ public class GpAddressDAOTest {
 		addr.setGpOrganization(org);
 
 		// When
-		addr = addrDAO.create(addr);
+		addr = addrService.create(addr);
 		
 		//On le sauvegarde pour le supprimer apres
 		this.createdAddrId = addr.getId();
@@ -89,13 +90,64 @@ public class GpAddressDAOTest {
 		Assert.assertNotNull(addr.getId());
 		
 	}
+	
+	@Test
+	public void testCreateAddressWithException() throws GesproBusinessException { // TODO : nécéssaire ?
+		// Given
+
+
+		// When
+		Exception exception = Assert.assertThrows(GesproBusinessException.class, () -> {
+			GpAddress addr = new GpAddress();
+			GpEmployee emp = new GpEmployee();
+			GpOrganization org = new GpOrganization();
+			
+			// creation organization
+			org.setOrgCode("ALPHA");
+			org.setName("Big Org");
+			org.setAdrWeb("bigorg.com");
+			org.setContactEmail("big@org.com");
+			org.setContactName("CName");
+			org.setPhoneNumber(7895);
+			org = organizationService.create(org);
+			this.orgIdForAllTest = org.getId();
+			
+			// creation employee
+			emp.setFileNumber("1984");
+			emp.setLastname("Nicolas");
+			emp.setFirstname("SARKOZY");
+			emp.setPhoneNumber("03187520990");
+			emp.setPassword("myExPresidentPassword");
+			emp.setEmail("nicolas.sarkozy@gouv.fr");
+			emp.setLogin("nico.sark");
+			emp = empService.create(emp);
+			this.empIdForAllTest = emp.getId();
+			
+			// creation address
+			byte byteExample = 1;
+			addr.setCountry("FRANCE");
+			addr.setIsMain(byteExample);
+			addr.setStreetLabel("Place de la Bastille");
+			addr.setStreetNumber(5);
+			addr.setZipCode(75000);
+			addr.setGpEmployee(emp);
+			addr.setGpOrganization(org);
+			addr = addrService.create(addr) ;
+			this.addrIdForAllTest = addr.getId();
+			
+	    });
+		String actualMessage = exception.getMessage();
+
+		// Then
+		Assert.assertTrue(actualMessage.contains("Un Comptable existe deja avec cet email"));
+	}
 
 	@Test
 	public void testFindAllEmployeeWithSuccess() {
 		// Given
 
 		// When
-		List<GpAddress> addrs = this.addrDAO.findAll();
+		List<GpAddress> addrs = this.addrService.findAll();
 		
 		// Then
 		Assert.assertTrue(addrs.size() > 0);
@@ -109,7 +161,7 @@ public class GpAddressDAOTest {
 		Integer empId = this.addrIdForAllTest;
 
 		// When
-		GpAddress addr = this.addrDAO.findById(empId);
+		GpAddress addr = this.addrService.findById(empId);
 		// Then
 		Assert.assertNotNull(addr);
 	}
@@ -121,8 +173,8 @@ public class GpAddressDAOTest {
 		Integer addrId = this.addrIdForAllTest;
 		
 		// When
-		this.addrDAO.deleteById(addrId);
-		GpAddress addr = this.addrDAO.findById(addrId);
+		this.addrService.deleteById(addrId);
+		GpAddress addr = this.addrService.findById(addrId);
 		
 		// Then
 		Assert.assertNull(addr);
@@ -130,7 +182,7 @@ public class GpAddressDAOTest {
 	}
 	
 	@Before
-	public void prepareAllEntityBefore() {
+	public void prepareAllEntityBefore() throws GesproBusinessException {
 		
 		GpAddress addr = new GpAddress();
 		GpEmployee emp = new GpEmployee();
@@ -143,7 +195,7 @@ public class GpAddressDAOTest {
 		org.setContactEmail("big@org.com");
 		org.setContactName("CName");
 		org.setPhoneNumber(7895);
-		org = organizationDAO.create(org);
+		org = organizationService.create(org);
 		this.orgIdForAllTest = org.getId();
 		
 		// creation employee
@@ -154,7 +206,7 @@ public class GpAddressDAOTest {
 		emp.setPassword("myExPresidentPassword");
 		emp.setEmail("nicolas.sarkozy@gouv.fr");
 		emp.setLogin("nico.sark");
-		emp = empDAO.create(emp);
+		emp = empService.create(emp);
 		this.empIdForAllTest = emp.getId();
 		
 		// creation address
@@ -166,7 +218,7 @@ public class GpAddressDAOTest {
 		addr.setZipCode(75000);
 		addr.setGpEmployee(emp);
 		addr.setGpOrganization(org);
-		addr = addrDAO.create(addr) ;
+		addr = addrService.create(addr) ;
 		this.addrIdForAllTest = addr.getId();
 		
 	}
@@ -174,25 +226,25 @@ public class GpAddressDAOTest {
 	@After
 	public void deleteAllEntityAfter() {
 
-		this.empDAO.deleteById(this.empIdForAllTest);
-		this.organizationDAO.deleteById(this.orgIdForAllTest);
-		this.addrDAO.deleteById(this.addrIdForAllTest);
+		this.empService.deleteById(this.empIdForAllTest);
+		this.organizationService.deleteById(this.orgIdForAllTest);
+		this.addrService.deleteById(this.addrIdForAllTest);
 		
 		if(!Objects.isNull(this.createdEmpId)) {
 			
-			this.empDAO.deleteById(this.createdEmpId);
+			this.empService.deleteById(this.createdEmpId);
 			
 		}
 		
 		if(!Objects.isNull(this.createdAddrId)) {
 			
-			this.addrDAO.deleteById(this.createdAddrId);
+			this.addrService.deleteById(this.createdAddrId);
 			
 		}
 		
 		if(!Objects.isNull(this.createdOrgId)) {
 			
-			this.organizationDAO.deleteById(this.createdOrgId);
+			this.organizationService.deleteById(this.createdOrgId);
 			
 		}
 		
