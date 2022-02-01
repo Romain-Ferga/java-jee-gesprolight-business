@@ -7,6 +7,7 @@ import java.util.List;
 
 import af.cmr.indyli.gespro.light.business.dao.IGpOrganizationDAO;
 import af.cmr.indyli.gespro.light.business.entity.GpOrganization;
+import af.cmr.indyli.gespro.light.business.entity.GpPhase;
 
 public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 	
@@ -16,7 +17,7 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 		
 		try {
 			
-			// On démarre une transaction
+			// On dï¿½marre une transaction
 			entityManager.getDbConnect().setAutoCommit(false);
 	
 			String REQ_SQL = "INSERT INTO GP_ORGANIZATION (ORG_CODE, NAME, PHONE_NUMBER, CONTACT_NAME, CONTACT_EMAIL, ADR_WEB) VALUES (?,?,?,?,?,?)";
@@ -25,7 +26,7 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 			
 			entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
 			
-			// On récupère le nouvel id
+			// On rï¿½cupï¿½re le nouvel id
 			Integer orgId = entityManager.findIdByAnyColumn("GP_ORGANIZATION", "ORG_CODE", org.getOrgCode(), "ORG_ID");
 			
 			org.setId(orgId);
@@ -41,6 +42,30 @@ public class GpOrganizationDAOImpl implements IGpOrganizationDAO {
 			return org;
 		
 	}
+	
+	
+	
+	public GpPhase create(GpPhase phs) {
+		try {	
+			this.entityManager.getDbConnect().setAutoCommit(false);
+			String REQ_SQL = "INSERT INTO GP_PHASE (PHASE_CODE, DESCRIPTION, START_DATE, END_DATE, AMOUNT, STATUS, IS_ENDED, CREATION_DATE, UPDATE_DATE, PROJECT_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			Object[] tabParam = {phs.getPhaseCode(), phs.getDescription(), phs.getStartDate(), phs.getEndDate(), phs.getAmount(), phs.getStatus(), phs.getIsEnded(), phs.getCreationDate(), phs.getUpdateDate(), phs.getGpProject().getId()};
+			entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
+			//On prepare l'ID Max ï¿½ retourner
+			String REQ_SQL_MAX_ID = "SELECT max(PHASE_ID) AS MaxId FROM GP_PHASE";
+			ResultSet resultat = this.entityManager.exec(REQ_SQL_MAX_ID);
+			if (resultat != null) {
+				while (resultat.next()) {
+					phs.setId(resultat.getInt("MaxId"));
+				}
+			}
+			this.entityManager.getDbConnect().setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return phs;
+	}
+	
 
 	public void update(GpOrganization org) {
 

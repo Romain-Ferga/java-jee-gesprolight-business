@@ -17,7 +17,7 @@ public class GpProjectDAOImpl implements IGpProjectDAO {
 		
 		try {
 		
-			// On démarre une transaction
+			// On dï¿½marre une transaction
 			entityManager.getDbConnect().setAutoCommit(false);
 	
 			String REQ_SQL = "INSERT INTO GP_PROJECT (PROJECT_CODE, NAME, DESCRIPTION, START_DATE, END_DATE, AMOUNT, CREATION_DATE, UPDATE_DATE, ORG_ID, EMP_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
@@ -26,12 +26,12 @@ public class GpProjectDAOImpl implements IGpProjectDAO {
 			
 			entityManager.updateAvecParamGenerique(REQ_SQL, tabParam);
 			
-			// On récupère le nouvel id
+			// On rï¿½cupï¿½re le nouvel id
 			Integer prjId = entityManager.findIdByAnyColumn("GP_PROJECT", "PROJECT_CODE", prj.getProjectCode(), "PROJECT_ID");
 			
 			prj.setId(prjId);
 			
-			// On récupère le max id
+			// On rï¿½cupï¿½re le max id
 			String REQ_SQL_MAX_ID = "SELECT MAX(PROJECT_ID) AS MAX_ID FROM GP_PROJECT";
 			
 			ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
