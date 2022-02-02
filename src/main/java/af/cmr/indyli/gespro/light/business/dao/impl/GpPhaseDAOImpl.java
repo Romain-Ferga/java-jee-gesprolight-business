@@ -31,22 +31,6 @@ public class GpPhaseDAOImpl implements IGpPhaseDAO {
 			
 			phs.setId(phsId);
 			
-			/*
-			 * String REQ_SQL_MAX_ID = "SELECT MAX(PHASE_ID) AS MAX_ID FROM GP_PHASE";
-			 * 
-			 * ResultSet resultat = entityManager.exec(REQ_SQL_MAX_ID);
-			 * 
-			 * if(resultat != null) {
-			 * 
-			 * while(resultat.next()) {
-			 * 
-			 * phs.setId(resultat.getInt("MAX_ID"));
-			 * 
-			 * }
-			 * 
-			 * }
-			 */
-			
 			entityManager.getDbConnect().setAutoCommit(true);
 			
 			}catch(SQLException e) {
