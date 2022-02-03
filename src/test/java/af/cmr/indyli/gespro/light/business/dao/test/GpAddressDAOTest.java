@@ -184,15 +184,15 @@ public class GpAddressDAOTest {
 			
 		}
 		
-		if(!Objects.isNull(this.createdAddrId)) {
-			
-			this.addrDAO.deleteById(this.createdAddrId);
-			
-		}
-		
 		if(!Objects.isNull(this.createdOrgId)) {
 			
 			this.organizationDAO.deleteById(this.createdOrgId);
+			
+		}
+		
+		if(!Objects.isNull(this.createdAddrId)) {
+			
+			this.addrDAO.deleteById(this.createdAddrId);
 			
 		}
 		

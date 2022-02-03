@@ -3,9 +3,7 @@ package af.cmr.indyli.gespro.light.business.dao.test;
 import java.util.List;
 import java.util.Objects;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import af.cmr.indyli.gespro.light.business.dao.IGpEmployeeDAO;
@@ -33,7 +31,7 @@ public class GpEmployeeDAOTest {
 
 		// When
 		emp = empDAO.create(emp);
-		//On le sauvegarde pour le supprimer apres
+		// On le sauvegarde pour le supprimer apres
 		this.createEmpId = emp.getId();
 		// Then
 		Assert.assertNotNull(emp.getId());
@@ -46,7 +44,7 @@ public class GpEmployeeDAOTest {
 		// When
 		List<GpEmployee> emps = this.empDAO.findAll();
 		// Then
-		Assert.assertTrue(emps.size() > 0);
+		Assert.assertTrue(emps.size() == 3);
 	}
 
 	@Test
@@ -64,16 +62,16 @@ public class GpEmployeeDAOTest {
 	public void testDelete() {
 		// Given
 		Integer empId = this.empIdForAllTest;
-		
+
 		// When
 		this.empDAO.deleteById(empId);
 		GpEmployee emp = this.empDAO.findById(empId);
-		
+
 		// Then
 		Assert.assertNull(emp);
 	}
-	
-	@Before
+
+	// @Before
 	public void prepareAllEntityBefore() {
 		GpEmployee emp = new GpEmployee();
 		Assert.assertNull(emp.getId());
@@ -84,14 +82,14 @@ public class GpEmployeeDAOTest {
 		emp.setPassword("myThirdPassword");
 		emp.setEmail("laurent.fabius@gouv.fr");
 		emp.setLogin("laurent.fabius");
-		emp = empDAO.create(emp) ;
+		emp = empDAO.create(emp);
 		this.empIdForAllTest = emp.getId();
 	}
-	
-	@After
+
+	// @After
 	public void deleteAllEntityAfter() {
 		this.empDAO.deleteById(this.empIdForAllTest);
-		if(!Objects.isNull(this.createEmpId)) {
+		if (!Objects.isNull(this.createEmpId)) {
 			this.empDAO.deleteById(this.createEmpId);
 		}
 	}

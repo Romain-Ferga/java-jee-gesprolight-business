@@ -23,174 +23,195 @@ import af.cmr.indyli.gespro.light.business.entity.GpProjectManager;
 
 public class GpProjectDAOTest {
 
-	private IGpProjectManagerDAO projectManagerDAO = new GpProjectManagerDAOImpl();
-	private IGpProjectDAO projectDAO = new GpProjectDAOImpl();
-	private IGpOrganizationDAO organizationDAO = new GpOrganizationDAOImpl();
+	private IGpProjectManagerDAO pmDAO = new GpProjectManagerDAOImpl();
+	private IGpOrganizationDAO orgDAO = new GpOrganizationDAOImpl();
+	private IGpProjectDAO prjDAO = new GpProjectDAOImpl();
 
-	private Integer pjIdForAllTest = null;
-	private Integer pjIdCreateTest = null;
+	private Integer pmIdForAllTest = null;
+	private Integer pmIdCreatedTest = null;
 
-	private GpOrganization orgTest;
-	private GpProjectManager pmTest;
+	private Integer orgIdForAllTest = null;
+	private Integer orgIdCreatedTest = null;
+
+	private Integer prjIdForAllTest = null;
+	private Integer prjIdCreatedTest = null;
 
 	@Test
 	public void testCreateProjectWithSuccess() {
-		
+
 		// Given
-		GpProject project = new GpProject();
-		Assert.assertNull(project.getId());
-		project.setProjectCode("Code2");
-		project.setName("Project2");
-		project.setDescription("SecondProject");
-		project.setStartDate(new Date());
-		project.setEndDate(new Date());
-		project.setAmount(5623.66);
-		project.setCreationDate(new Date());
 
-		Assert.assertNotNull(this.pmTest.getId());
-		Assert.assertNotNull(this.orgTest.getId());
+		// creation ProjetManager
+		GpProjectManager pm = new GpProjectManager();
+		Assert.assertNull(pm.getId());
+		pm.setFileNumber("1751");
+		pm.setLastname("Jean-Luc");
+		pm.setFirstname("Melenchon");
+		pm.setPhoneNumber("0683897891");
+		pm.setPassword("myPassword");
+		pm.setEmail("jl.melenchon@gouv.fr");
+		pm.setLogin("jl.mlchn");
+		pm = pmDAO.create(pm);
+		assertNotNull(pm.getId());
+		this.pmIdCreatedTest = pm.getId();
 
-		project.setGpOrganization(this.orgTest);
-		project.setGpChefProjet(pmTest);
+		// creation organisation
+		GpOrganization org = new GpOrganization();
+		Assert.assertNull(org.getId());
+		org.setOrgCode("BETA");
+		org.setName("Little Org");
+		org.setAdrWeb("littleorg.com");
+		org.setContactEmail("little@org.com");
+		org.setContactName("CName");
+		org.setPhoneNumber(9581);
+		org = orgDAO.create(org);
+		Assert.assertNotNull(org.getId());
+		this.orgIdCreatedTest = org.getId();
 
-		project = this.projectDAO.create(project);
-		Assert.assertNotNull(project.getId());
-
-		this.pjIdCreateTest = project.getId();
+		// creation project
+		GpProject prj = new GpProject();
+		Assert.assertNull(prj.getId());
+		prj.setProjectCode("Code2");
+		prj.setName("Project2");
+		prj.setDescription("SecondProject");
+		prj.setStartDate(new Date());
+		prj.setEndDate(new Date());
+		prj.setAmount(5623.66);
+		prj.setCreationDate(new Date());
+		prj.setGpOrganization(org);
+		prj.setGpChefProjet(pm);
+		prj = this.prjDAO.create(prj);
+		Assert.assertNotNull(prj.getId());
+		this.prjIdCreatedTest = prj.getId();
 
 	}
 
 	@Test
 	public void testFindAllProjectsWithSuccess() {
-		
+
 		// Given
 
 		// When
-		List<GpProject> projects = this.projectDAO.findAll();
-		
+		List<GpProject> prjs = this.prjDAO.findAll();
+
 		// Then
-		Assert.assertTrue(projects.size() > 0);
-		
+		Assert.assertTrue(prjs.size() == 1);
+
 	}
 
 	@Test
 	public void testFindByIdWithSuccess() {
-		
+
 		// Given
-		Integer projectId = this.pjIdForAllTest;
-		
+		Integer prjId = this.prjIdForAllTest;
+
 		// When
-		Assert.assertNotNull(projectId);
-		GpProject project = this.projectDAO.findById(projectId);
-		
+		Assert.assertNotNull(prjId);
+		GpProject prj = this.prjDAO.findById(prjId);
+
 		// Then
-		Assert.assertNotNull(project);
-		
+		Assert.assertNotNull(prj);
+
 	}
 
 	@Test
 	public void testUpdateProjectsWithSuccess() {
-		
-		// Given
-		Integer projectId = this.pjIdForAllTest;
-		Assert.assertNotNull(projectId);
-		// When
 
-		GpProject gpProject = this.projectDAO.findById(projectId);
-		gpProject.setAmount(8659);
-		projectDAO.update(gpProject);
-		
+		// Given
+		Integer prjId = this.prjIdForAllTest;
+		Assert.assertNotNull(prjId);
+
+		// When
+		GpProject prj = this.prjDAO.findById(prjId);
+		prj.setAmount(8659);
+		prjDAO.update(prj);
+
 	}
 
 	@Test
 	public void testDeleteProjectWithSuccess() {
-		
+
 		// Given
-		Integer projectId = this.pjIdForAllTest;
-		Assert.assertNotNull(projectId);
-		
+		Integer prjId = this.prjIdForAllTest;
+		Assert.assertNotNull(prjId);
+
 		// When
-		projectDAO.deleteById(projectId);
-		
+		prjDAO.deleteById(prjId);
+
 	}
 
 	@Before
 	public void prepareAllEntityBefore() {
 
-		// Init GpProjetManager
-		GpProjectManager emp = new GpProjectManager();
-		emp.setFileNumber("1050");
-		emp.setLastname("Segolene");
-		emp.setFirstname("ROYAL");
-		emp.setPhoneNumber("0256897856");
-		emp.setPassword("mySecondPassword");
-		emp.setEmail("segolene.royal@gouv.fr");
-		emp.setLogin("sego.royal");
-		emp = projectManagerDAO.create(emp);
-
-		this.pmTest = new GpProjectManager();
-		this.pmTest = emp;
-		assertNotNull(this.pmTest.getId());
+		// creation ProjetManager
+		GpProjectManager pm = new GpProjectManager();
+		pm.setFileNumber("1050");
+		pm.setLastname("Segolene");
+		pm.setFirstname("ROYAL");
+		pm.setPhoneNumber("0256897856");
+		pm.setPassword("mySecondPassword");
+		pm.setEmail("segolene.royal@gouv.fr");
+		pm.setLogin("sego.royal");
+		pm = pmDAO.create(pm);
+		assertNotNull(pm.getId());
 
 		// creation organisation
-		GpOrganization organization = new GpOrganization();
-		Assert.assertNull(organization.getId());
-		organization.setOrgCode("ALPHA");
-		organization.setName("Big Org");
-		organization.setAdrWeb("bigorg.com");
-		organization.setContactEmail("big@org.com");
-		organization.setContactName("CName");
-		organization.setPhoneNumber(7895);
-		organization = organizationDAO.create(organization);
-
-		this.orgTest = new GpOrganization();
-		this.orgTest = organization;
-		Assert.assertNotNull(this.orgTest.getId());
+		GpOrganization org = new GpOrganization();
+		Assert.assertNull(org.getId());
+		org.setOrgCode("ALPHA");
+		org.setName("Big Org");
+		org.setAdrWeb("bigorg.com");
+		org.setContactEmail("big@org.com");
+		org.setContactName("CName");
+		org.setPhoneNumber(7895);
+		org = orgDAO.create(org);
+		Assert.assertNotNull(org.getId());
 
 		// creation project
-		GpProject project = new GpProject();
-		Assert.assertNull(project.getId());
-		project.setProjectCode("Code1");
-		project.setName("Project1");
-		project.setDescription("FirstProject");
-		project.setStartDate(new Date());
-		project.setEndDate(new Date());
-		project.setAmount(5623.66);
-		project.setCreationDate(new Date());
-		project.setGpOrganization(this.orgTest);
-		project.setGpChefProjet(this.pmTest);
+		GpProject prj = new GpProject();
+		Assert.assertNull(prj.getId());
+		prj.setProjectCode("Code1");
+		prj.setName("Project1");
+		prj.setDescription("FirstProject");
+		prj.setStartDate(new Date());
+		prj.setEndDate(new Date());
+		prj.setAmount(5623.66);
+		prj.setCreationDate(new Date());
+		prj.setGpOrganization(org);
+		prj.setGpChefProjet(pm);
 
-		project = this.projectDAO.create(project);
-		Assert.assertNotNull(project.getId());
+		prj = this.prjDAO.create(prj);
+		Assert.assertNotNull(prj.getId());
 
-		this.pjIdForAllTest = project.getId();
-		
+		this.prjIdForAllTest = prj.getId();
+
 	}
 
 	@After
 	public void deleteAllEntityAfter() {
-		
-		this.projectDAO.deleteById(this.pjIdForAllTest);
-		
-		if (!Objects.isNull(this.pjIdCreateTest)) {
-			
-			this.projectDAO.deleteById(pjIdCreateTest);
-			
-		}
-		
-		if (!Objects.isNull(this.pmTest)) {
-			
-			this.projectManagerDAO.deleteById(this.pmTest.getId());
-			
-		}
-		
-		if (!Objects.isNull(this.orgTest)) {
-			
-			this.organizationDAO.deleteById(this.orgTest.getId());
-			
-		}
-		
-	}
 
+		this.pmDAO.deleteById(this.pmIdForAllTest);
+		this.orgDAO.deleteById(this.orgIdForAllTest);
+		this.prjDAO.deleteById(this.prjIdForAllTest);
+
+		if (!Objects.isNull(this.pmIdCreatedTest)) {
+
+			this.pmDAO.deleteById(this.pmIdCreatedTest);
+
+		}
+
+		if (!Objects.isNull(this.orgIdCreatedTest)) {
+
+			this.orgDAO.deleteById(this.orgIdCreatedTest);
+
+		}
+
+		if (!Objects.isNull(this.prjIdCreatedTest)) {
+
+			this.prjDAO.deleteById(prjIdCreatedTest);
+
+		}
+
+	}
 
 }
