@@ -31,87 +31,11 @@ public class GpProject implements IEntity {
 	private GpOrganization gpOrganization;
 
 	public GpProject() {
-	}
 
+		gpChefProjet = new GpProjectManager();
 
-	public Integer getId() {
-		return id;
-	}
+		gpOrganization = new GpOrganization();
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public double getAmount() {
-		return this.amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-
-	public Date getCreationDate() {
-		return this.creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Date getEndDate() {
-		return this.endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getProjectCode() {
-		return this.projectCode;
-	}
-
-	public void setProjectCode(String projectCode) {
-		this.projectCode = projectCode;
-	}
-
-	public Date getStartDate() {
-		return this.startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getUpdateDate() {
-		return this.updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public List<GpPhase> getGpPhases() {
-		return this.gpPhases;
-	}
-
-	public void setGpPhases(List<GpPhase> gpPhases) {
-		this.gpPhases = gpPhases;
 	}
 
 	public GpPhase addGpPhas(GpPhase gpPhas) {
@@ -121,6 +45,55 @@ public class GpProject implements IEntity {
 		return gpPhas;
 	}
 
+	public double getAmount() {
+		return this.amount;
+	}
+
+	public Date getCreationDate() {
+		return this.creationDate;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public Date getEndDate() {
+		return this.endDate;
+	}
+
+	public GpProjectManager getGpChefProjet() {
+		return this.gpChefProjet;
+	}
+
+	public GpOrganization getGpOrganization() {
+		return this.gpOrganization;
+	}
+
+	public List<GpPhase> getGpPhases() {
+		return this.gpPhases;
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public String getProjectCode() {
+		return this.projectCode;
+	}
+
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	public Date getUpdateDate() {
+		return this.updateDate;
+	}
+
 	public GpPhase removeGpPhas(GpPhase gpPhas) {
 		getGpPhases().remove(gpPhas);
 		gpPhas.setGpProject(null);
@@ -128,20 +101,53 @@ public class GpProject implements IEntity {
 		return gpPhas;
 	}
 
-	public GpProjectManager getGpChefProjet() {
-		return this.gpChefProjet;
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public void setGpChefProjet(GpProjectManager gpChefProjet) {
 		this.gpChefProjet = gpChefProjet;
 	}
 
-	public GpOrganization getGpOrganization() {
-		return this.gpOrganization;
-	}
-
 	public void setGpOrganization(GpOrganization gpOrganization) {
 		this.gpOrganization = gpOrganization;
+	}
+
+	public void setGpPhases(List<GpPhase> gpPhases) {
+		this.gpPhases = gpPhases;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }

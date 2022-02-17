@@ -2,13 +2,14 @@ package af.cmr.indyli.gespro.light.business.entity;
 
 import java.util.Date;
 import java.util.List;
+
 public class GpPhase implements IEntity {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
-	
+
 	private double amount;
-	
+
 	private Date creationDate;
 
 	private String description;
@@ -34,95 +35,9 @@ public class GpPhase implements IEntity {
 	private GpProject gpProject;
 
 	public GpPhase() {
-	}
 
+		gpProject = new GpProject();
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public double getAmount() {
-		return this.amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
-	}
-
-	public Date getCreationDate() {
-		return this.creationDate;
-	}
-
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
-
-	public String getDescription() {
-		return this.description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Date getEndDate() {
-		return this.endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public byte getIsEnded() {
-		return this.isEnded;
-	}
-
-	public void setIsEnded(byte isEnded) {
-		this.isEnded = isEnded;
-	}
-
-	public String getPhaseCode() {
-		return this.phaseCode;
-	}
-
-	public void setPhaseCode(String phaseCode) {
-		this.phaseCode = phaseCode;
-	}
-
-	public Date getStartDate() {
-		return this.startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public byte getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(byte status) {
-		this.status = status;
-	}
-
-	public Date getUpdateDate() {
-		return this.updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-
-	public List<GpBill> getGpBills() {
-		return this.gpBills;
-	}
-
-	public void setGpBills(List<GpBill> gpBills) {
-		this.gpBills = gpBills;
 	}
 
 	public GpBill addGpBill(GpBill gpBill) {
@@ -132,41 +47,11 @@ public class GpPhase implements IEntity {
 		return gpBill;
 	}
 
-	public GpBill removeGpBill(GpBill gpBill) {
-		getGpBills().remove(gpBill);
-		gpBill.setGpPhase(null);
-
-		return gpBill;
-	}
-
-	public List<GpDeliverable> getGpDeliverables() {
-		return this.gpDeliverables;
-	}
-
-	public void setGpDeliverables(List<GpDeliverable> gpDeliverables) {
-		this.gpDeliverables = gpDeliverables;
-	}
-
 	public GpDeliverable addGpDeliverable(GpDeliverable gpDeliverable) {
 		getGpDeliverables().add(gpDeliverable);
 		gpDeliverable.setGpPhase(this);
 
 		return gpDeliverable;
-	}
-
-	public GpDeliverable removeGpDeliverable(GpDeliverable gpDeliverable) {
-		getGpDeliverables().remove(gpDeliverable);
-		gpDeliverable.setGpPhase(null);
-
-		return gpDeliverable;
-	}
-
-	public List<GpEmpReaPhase> getGpEmpReaPhases() {
-		return this.gpEmpReaPhases;
-	}
-
-	public void setGpEmpReaPhases(List<GpEmpReaPhase> gpEmpReaPhases) {
-		this.gpEmpReaPhases = gpEmpReaPhases;
 	}
 
 	public GpEmpReaPhase addGpEmpReaPhas(GpEmpReaPhase gpEmpReaPhas) {
@@ -176,6 +61,77 @@ public class GpPhase implements IEntity {
 		return gpEmpReaPhas;
 	}
 
+	public double getAmount() {
+		return this.amount;
+	}
+
+	public Date getCreationDate() {
+		return this.creationDate;
+	}
+
+	public String getDescription() {
+		return this.description;
+	}
+
+	public Date getEndDate() {
+		return this.endDate;
+	}
+
+	public List<GpBill> getGpBills() {
+		return this.gpBills;
+	}
+
+	public List<GpDeliverable> getGpDeliverables() {
+		return this.gpDeliverables;
+	}
+
+	public List<GpEmpReaPhase> getGpEmpReaPhases() {
+		return this.gpEmpReaPhases;
+	}
+
+	public GpProject getGpProject() {
+		return this.gpProject;
+	}
+
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	public byte getIsEnded() {
+		return this.isEnded;
+	}
+
+	public String getPhaseCode() {
+		return this.phaseCode;
+	}
+
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	public byte getStatus() {
+		return this.status;
+	}
+
+	public Date getUpdateDate() {
+		return this.updateDate;
+	}
+
+	public GpBill removeGpBill(GpBill gpBill) {
+		getGpBills().remove(gpBill);
+		gpBill.setGpPhase(null);
+
+		return gpBill;
+	}
+
+	public GpDeliverable removeGpDeliverable(GpDeliverable gpDeliverable) {
+		getGpDeliverables().remove(gpDeliverable);
+		gpDeliverable.setGpPhase(null);
+
+		return gpDeliverable;
+	}
+
 	public GpEmpReaPhase removeGpEmpReaPhas(GpEmpReaPhase gpEmpReaPhas) {
 		getGpEmpReaPhases().remove(gpEmpReaPhas);
 		gpEmpReaPhas.setGpPhase(null);
@@ -183,12 +139,61 @@ public class GpPhase implements IEntity {
 		return gpEmpReaPhas;
 	}
 
-	public GpProject getGpProject() {
-		return this.gpProject;
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public void setGpBills(List<GpBill> gpBills) {
+		this.gpBills = gpBills;
+	}
+
+	public void setGpDeliverables(List<GpDeliverable> gpDeliverables) {
+		this.gpDeliverables = gpDeliverables;
+	}
+
+	public void setGpEmpReaPhases(List<GpEmpReaPhase> gpEmpReaPhases) {
+		this.gpEmpReaPhases = gpEmpReaPhases;
 	}
 
 	public void setGpProject(GpProject gpProject) {
 		this.gpProject = gpProject;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void setIsEnded(byte isEnded) {
+		this.isEnded = isEnded;
+	}
+
+	public void setPhaseCode(String phaseCode) {
+		this.phaseCode = phaseCode;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public void setStatus(byte status) {
+		this.status = status;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 
 }
